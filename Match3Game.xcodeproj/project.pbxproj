@@ -16,6 +16,7 @@
 		001FF1B223E5F98E00CB58CF /* sfml-graphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 001FF1AF23E5F98E00CB58CF /* sfml-graphics.framework */; };
 		001FF1B323E5F98E00CB58CF /* sfml-window.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 001FF1B023E5F98E00CB58CF /* sfml-window.framework */; };
 		001FF1B423E5F98E00CB58CF /* sfml-system.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 001FF1B123E5F98E00CB58CF /* sfml-system.framework */; };
+		001FF1B623E601CB00CB58CF /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 001FF1B523E601CB00CB58CF /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		001FF1AF23E5F98E00CB58CF /* sfml-graphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-graphics.framework"; path = "../../../../Library/Frameworks/sfml-graphics.framework"; sourceTree = "<group>"; };
 		001FF1B023E5F98E00CB58CF /* sfml-window.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-window.framework"; path = "../../../../Library/Frameworks/sfml-window.framework"; sourceTree = "<group>"; };
 		001FF1B123E5F98E00CB58CF /* sfml-system.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-system.framework"; path = "../../../../Library/Frameworks/sfml-system.framework"; sourceTree = "<group>"; };
+		001FF1B523E601CB00CB58CF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +52,7 @@
 		001FF18C23E5F5A300CB58CF = {
 			isa = PBXGroup;
 			children = (
+				001FF1B523E601CB00CB58CF /* README.md */,
 				001FF19823E5F5A300CB58CF /* Match3Game */,
 				001FF19723E5F5A300CB58CF /* Products */,
 				001FF1AE23E5F98D00CB58CF /* Frameworks */,
@@ -165,6 +168,7 @@
 			files = (
 				001FF1A823E5F5A400CB58CF /* icon.png in Resources */,
 				001FF1A623E5F5A400CB58CF /* sansation.ttf in Resources */,
+				001FF1B623E601CB00CB58CF /* README.md in Resources */,
 				001FF1A423E5F5A400CB58CF /* nice_music.ogg in Resources */,
 				001FF1A223E5F5A400CB58CF /* cute_image.jpg in Resources */,
 			);
