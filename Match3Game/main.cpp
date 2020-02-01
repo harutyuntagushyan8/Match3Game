@@ -24,7 +24,7 @@
 int main(int, char const**)
 {
     // Create the main window
-    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Match3 Game");
 
     // Set the Icon
     sf::Image icon;
