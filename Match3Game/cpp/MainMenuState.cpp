@@ -4,6 +4,7 @@
 //
 
 #include "MainMenuState.h"
+#include "Game.h"
 #include <iostream>
 
 MainMenuState::~MainMenuState() {
@@ -34,7 +35,7 @@ void MainMenuState::update(const float& dt) {
 
 void MainMenuState::updateSFMLEvents(const float &dt) {
     if(button->isPressed()) {
-
+        Game::getInstance().states.push(new GameState(window));
     }
 }
 

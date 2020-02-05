@@ -15,7 +15,7 @@ GameState::GameState(sf::RenderWindow* window) : State(window) {
 }
 
 void GameState::render() {
-    //window->clear();
+    window->clear();
     player->render();
     window->display();
 }

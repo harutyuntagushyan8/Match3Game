@@ -17,18 +17,23 @@ private:
     void update();
     void render();
 
+    Game();
+
     // Variables
     sf::RenderWindow* window;
     sf::Event sfEvent;
 
     float dt;
     sf::Clock dtClock;
-    std::stack<State*> states;
 
 public:
-    Game();
     virtual ~Game();
     void run();
+    static Game& getInstance() {
+        static Game instance;
+        return instance;
+    }
+    std::stack<State*> states;
 
 };
 
