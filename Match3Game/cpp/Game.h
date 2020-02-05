@@ -6,36 +6,41 @@
 #ifndef MATCH3GAME_GAME_H
 #define MATCH3GAME_GAME_H
 
-#include "GameState.h"
+#include "SFML/Graphics.hpp"
+#include "SFML/Window.hpp"
+#include "SFML/System.hpp"
+#include "SFML/Audio.hpp"
+#include "Board.h"
+
+const int WINDOW_WIDTH = 1200;
+const int WINDOW_HEIGHT = 800;
+const int ROWS = 10;
+const int COLUMNS = 10;
+const int HOLESCOUNT = 3;
 
 class Game {
 private:
     void initWindow();
-    void initStates();
-    void updateDt();
     void updateSFMLEvents();
     void update();
     void render();
 
-    Game();
-
     // Variables
     sf::RenderWindow* window;
     sf::Event sfEvent;
-
-    float dt;
-    sf::Clock dtClock;
+    Board* board;
+    sf::Image icon;
+    sf::Texture texture;
+    sf::Sprite sprite;
+    sf::Font font;
+    sf::Music music;
+    sf::Vector2f mousePos;
 
 public:
+    Game();
     virtual ~Game();
     void run();
-    static Game& getInstance() {
-        static Game instance;
-        return instance;
-    }
-    std::stack<State*> states;
 
 };
-
 
 #endif //MATCH3GAME_GAME_H

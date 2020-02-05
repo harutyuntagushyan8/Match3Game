@@ -5,31 +5,34 @@
 
 #include "Game.h"
 #include "ResourcePath.hpp"
-#include "MainMenuState.h"
-#include <iostream>
-
-// Initializer functions
-void Game::initWindow() {
-    window = new sf::RenderWindow(sf::VideoMode(1200, 800), "Match3 Game");
-    window->setFramerateLimit(120);
-    window->setVerticalSyncEnabled(false);
-}
 
 // Constructors/Destructors
 Game::Game() {
     initWindow();
-    initStates();
 }
 
 Game::~Game() {
     delete window;
-    while (!states.empty()) {
-        delete states.top();
-        states.pop();
-    }
+    delete board;
 }
 
-// Functions
+// Initialize window
+void Game::initWindow() {
+    window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Match3 Game");
+    window->setFramerateLimit(120);
+    window->setVerticalSyncEnabled(false);
+
+    icon.loadFromFile(resourcePath() + "icon.png");
+    window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+
+    music.openFromFile(resourcePath() + "nice_music.ogg");
+
+    // Initialize board
+    board = new Board(ROWS, COLUMNS, HOLESCOUNT);
+
+}
+
+// Update events
 void Game::updateSFMLEvents() {
     // Process events
     while (window->pollEvent(sfEvent)) {
@@ -43,42 +46,26 @@ void Game::updateSFMLEvents() {
     }
 }
 
+// Update all in game
 void Game::update() {
     updateSFMLEvents();
 
-    if(!states.empty()) {
-        states.top()->update(dt);
-    } else {
-        window->close();
-    }
+    board->update();
 }
 
+// Render window
 void Game::render() {
-    window->clear();
-
-    if(!states.empty()) {
-        states.top()->render();
-    }
-
+    window->clear(sf::Color(100, 100, 200, 255));
+    board->render();
     window->display();
 }
 
 void Game::run() {
+    music.play();
     while (window->isOpen()) {
-        //updateDt();
-        updateSFMLEvents();
         update();
         render();
     }
-}
-
-//void Game::updateDt() {
-//    dt = dtClock.restart().asSeconds();
-//    std::cout << "FPS = " << 1.f/dt << "\n";
-//}
-
-void Game::initStates() {
-    states.push(new MainMenuState(window));
 }
 
 

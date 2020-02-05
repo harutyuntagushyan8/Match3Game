@@ -3,6 +3,6 @@
 #include "ResourcePath.hpp"
 
 int main(int, char const**) {
-    Game game = Game::getInstance();
+    Game game;
     game.run();
 }

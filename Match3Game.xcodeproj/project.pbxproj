@@ -24,14 +24,9 @@
 		001FF1E723E60C8300CB58CF /* violet.png in Resources */ = {isa = PBXBuildFile; fileRef = 001FF1CD23E6084300CB58CF /* violet.png */; };
 		001FF1EC23E60D5B00CB58CF /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 001FF1EB23E60D5B00CB58CF /* icon.png */; };
 		001FF1EE23E60E0400CB58CF /* nice_music.ogg in Resources */ = {isa = PBXBuildFile; fileRef = 001FF1ED23E60D7700CB58CF /* nice_music.ogg */; };
-		001FF1F323E6115000CB58CF /* sansation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 001FF1F223E6112200CB58CF /* sansation.ttf */; };
-		D7E6E010FF8167ADAF003841 /* State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7E6E39E6A0E8A5C7B00581D /* State.cpp */; };
 		D7E6E1518B9367B6BAB530C3 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7E6E3A1DB5BA3464C0475D3 /* Game.cpp */; };
-		D7E6E3541601936FDCD3685E /* Button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7E6E4248931B919258E0147 /* Button.cpp */; };
-		D7E6E6EC32ED69B4FC2922E4 /* image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D7E6E843F2C9BE11C990F669 /* image.jpg */; };
-		D7E6E72A86678495C5C9C312 /* GameState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7E6E2ABF3880A35F81F8D94 /* GameState.cpp */; };
-		D7E6EDEE5F1372B2068E6087 /* MainMenuState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7E6ECE0E6288C833DC718E7 /* MainMenuState.cpp */; };
-		D7E6EFE261A692CC6E793E09 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7E6E83C477C844AD4C4696F /* Entity.cpp */; };
+		D7E6ED6E7401D8692B312B8B /* Board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7E6E6415EF616D7206EC70D /* Board.cpp */; };
+		D7E6EDFFF39B77A2189DFB97 /* Gem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7E6E626C7B7587B486DE356 /* Gem.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,20 +51,12 @@
 		001FF1D023E6084400CB58CF /* h_bomb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = h_bomb.png; sourceTree = "<group>"; };
 		001FF1EB23E60D5B00CB58CF /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		001FF1ED23E60D7700CB58CF /* nice_music.ogg */ = {isa = PBXFileReference; lastKnownFileType = file; path = nice_music.ogg; sourceTree = "<group>"; };
-		001FF1F223E6112200CB58CF /* sansation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sansation.ttf; sourceTree = "<group>"; };
-		D7E6E1CA13FB3E933B33EE33 /* Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Entity.h; sourceTree = "<group>"; };
-		D7E6E2ABF3880A35F81F8D94 /* GameState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameState.cpp; sourceTree = "<group>"; };
-		D7E6E34986A8705B1DE6B65B /* State.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = State.h; sourceTree = "<group>"; };
-		D7E6E39E6A0E8A5C7B00581D /* State.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = State.cpp; sourceTree = "<group>"; };
 		D7E6E3A1DB5BA3464C0475D3 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
-		D7E6E4248931B919258E0147 /* Button.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Button.cpp; sourceTree = "<group>"; };
-		D7E6E4EFD855AC9E7518CE3E /* Button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Button.h; sourceTree = "<group>"; };
-		D7E6E6A12EA86559696BFEEC /* GameState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameState.h; sourceTree = "<group>"; };
-		D7E6E83C477C844AD4C4696F /* Entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Entity.cpp; sourceTree = "<group>"; };
-		D7E6E843F2C9BE11C990F669 /* image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image.jpg; sourceTree = "<group>"; };
+		D7E6E626C7B7587B486DE356 /* Gem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Gem.cpp; sourceTree = "<group>"; };
+		D7E6E6415EF616D7206EC70D /* Board.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Board.cpp; sourceTree = "<group>"; };
+		D7E6E6E769BD608CE747215B /* Gem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Gem.h; sourceTree = "<group>"; };
 		D7E6EA50F759FBE08CEC40A5 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
-		D7E6EC93644617FB5B5B77E2 /* MainMenuState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuState.h; sourceTree = "<group>"; };
-		D7E6ECE0E6288C833DC718E7 /* MainMenuState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainMenuState.cpp; sourceTree = "<group>"; };
+		D7E6EAA4ACB21488BDD768EC /* Board.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Board.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,7 +114,6 @@
 		001FF1A023E5F5A400CB58CF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				001FF1F223E6112200CB58CF /* sansation.ttf */,
 				001FF1ED23E60D7700CB58CF /* nice_music.ogg */,
 				001FF1EB23E60D5B00CB58CF /* icon.png */,
 				001FF1CE23E6084300CB58CF /* blue.png */,
@@ -140,7 +126,6 @@
 				001FF1C723E6084300CB58CF /* tile_2.png */,
 				001FF1CA23E6084300CB58CF /* v_bomb.png */,
 				001FF1CD23E6084300CB58CF /* violet.png */,
-				D7E6E843F2C9BE11C990F669 /* image.jpg */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -161,16 +146,10 @@
 				001FF19E23E5F5A400CB58CF /* main.cpp */,
 				D7E6E3A1DB5BA3464C0475D3 /* Game.cpp */,
 				D7E6EA50F759FBE08CEC40A5 /* Game.h */,
-				D7E6E34986A8705B1DE6B65B /* State.h */,
-				D7E6E39E6A0E8A5C7B00581D /* State.cpp */,
-				D7E6E2ABF3880A35F81F8D94 /* GameState.cpp */,
-				D7E6E6A12EA86559696BFEEC /* GameState.h */,
-				D7E6E83C477C844AD4C4696F /* Entity.cpp */,
-				D7E6E1CA13FB3E933B33EE33 /* Entity.h */,
-				D7E6E4248931B919258E0147 /* Button.cpp */,
-				D7E6E4EFD855AC9E7518CE3E /* Button.h */,
-				D7E6ECE0E6288C833DC718E7 /* MainMenuState.cpp */,
-				D7E6EC93644617FB5B5B77E2 /* MainMenuState.h */,
+				D7E6E6415EF616D7206EC70D /* Board.cpp */,
+				D7E6EAA4ACB21488BDD768EC /* Board.h */,
+				D7E6E626C7B7587B486DE356 /* Gem.cpp */,
+				D7E6E6E769BD608CE747215B /* Gem.h */,
 			);
 			path = cpp;
 			sourceTree = "<group>";
@@ -233,7 +212,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				001FF1F323E6115000CB58CF /* sansation.ttf in Resources */,
 				001FF1EE23E60E0400CB58CF /* nice_music.ogg in Resources */,
 				001FF1EC23E60D5B00CB58CF /* icon.png in Resources */,
 				001FF1DE23E60C8300CB58CF /* blue.png in Resources */,
@@ -246,7 +224,6 @@
 				001FF1E523E60C8300CB58CF /* tile_2.png in Resources */,
 				001FF1E623E60C8300CB58CF /* v_bomb.png in Resources */,
 				001FF1E723E60C8300CB58CF /* violet.png in Resources */,
-				D7E6E6EC32ED69B4FC2922E4 /* image.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,11 +257,8 @@
 				001FF19F23E5F5A400CB58CF /* main.cpp in Sources */,
 				001FF19C23E5F5A400CB58CF /* ResourcePath.mm in Sources */,
 				D7E6E1518B9367B6BAB530C3 /* Game.cpp in Sources */,
-				D7E6E010FF8167ADAF003841 /* State.cpp in Sources */,
-				D7E6E72A86678495C5C9C312 /* GameState.cpp in Sources */,
-				D7E6EFE261A692CC6E793E09 /* Entity.cpp in Sources */,
-				D7E6E3541601936FDCD3685E /* Button.cpp in Sources */,
-				D7E6EDEE5F1372B2068E6087 /* MainMenuState.cpp in Sources */,
+				D7E6ED6E7401D8692B312B8B /* Board.cpp in Sources */,
+				D7E6EDFFF39B77A2189DFB97 /* Gem.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
