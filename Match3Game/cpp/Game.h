@@ -12,13 +12,14 @@
 #include "SFML/Audio.hpp"
 #include "Board.h"
 
-const int WINDOW_WIDTH = 1200;
-const int WINDOW_HEIGHT = 800;
+const int WINDOW_WIDTH = 1600;
+const int WINDOW_HEIGHT = 1600;
 const int ROWS = 10;
 const int COLUMNS = 10;
 const int HOLESCOUNT = 3;
-const int X = 50;
-const int Y = 50;
+const int X = 350;
+const int Y = 350;
+const sf::Vector2i OFFSET(100,100);
 
 class Game {
 private:
@@ -37,7 +38,7 @@ private:
 
 public:
     Game();
-    virtual ~Game();
+    ~Game();
     void run();
 
 };

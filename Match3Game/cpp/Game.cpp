@@ -28,7 +28,7 @@ void Game::initWindow() {
     music.openFromFile(resourcePath() + "nice_music.ogg");
 
     // Initialize board
-    board = new Board(X, Y, ROWS, COLUMNS, HOLESCOUNT);
+    board = new Board(window, X, Y, ROWS, COLUMNS,OFFSET, HOLESCOUNT);
 
 }
 
@@ -55,7 +55,7 @@ void Game::update() {
 
 // Render window
 void Game::render() {
-    window->clear(sf::Color(100, 100, 200, 255));
+    window->clear(sf::Color(100, 120, 130, 255));
     board->render();
     window->display();
 }

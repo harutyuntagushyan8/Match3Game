@@ -5,12 +5,10 @@
 
 #include "Board.h"
 
-Board::Board(int x, int y, int r, int c, int holeCount) : originX(x), originY(y), rows(r), columns(c) {
-    gems.reserve(rows);
-    for(int i = 0; i < rows; ++i) {
-        gems[i].reserve(columns);
-    }
-    this->holeCount = holeCount;
+Board::Board(sf::RenderWindow* window, int x, int y, int r, int c, sf::Vector2i offset, int holeCount) :
+                        window(window), originX(x), originY(y), rows(r), columns(c), offset(offset), holeCount(holeCount) {
+    gems.resize(rows, std::vector<Gem*>(columns));
+    gemTextures.resize(gemIcons.size());
     random();
     loadResources();
     createGems();
@@ -32,7 +30,9 @@ void Board::update() {
 void Board::render() {
     for(int i = 0; i < rows; ++i) {
         for(int j = 0; j < columns; ++j)
-            gems[i][j]->render();
+            if(std::find(holes.begin(), holes.end(), i * rows + j) == holes.end()) {
+                gems[i][j]->render();
+            }
     }
 }
 
@@ -49,7 +49,7 @@ Board::~Board() {
 }
 
 void Board::random() {
-    holes = new int[holeCount];
+    holes.resize(holeCount);
     for(int i = 0; i < holeCount; ++i) {
         holes[i] = std::rand() % (rows * columns);
     }
@@ -57,41 +57,50 @@ void Board::random() {
 
 void Board::createGems() {
     bool tileSequence = true;
+    int x = originX;
+    int y = originY;
     for(int i = 0; i < rows; ++i) {
         for(int j = 0; j < columns; ++j) {
-            for(int index = 0; index < holeCount; ++index) {
-                if(i * rows + j != holes[index]) {
-                    int randomGem = std::rand() % gemIcons.size();
-                    if(tileSequence) {
-                        //gems[i][j] = new Gem(tile1, gemTextures[1]);
-                        tileSequence = false;
-                    } else {
-                        //gems[i][j] = new Gem(tile2, gemTextures[1]);
-                        tileSequence = true;
-                    }
+            if(std::find(holes.begin(), holes.end(), i * rows + j) == holes.end()) {
+                int randomGem = std::rand() % gemTextures.size();
+                if(tileSequence) {
+                    gems[i][j] = new Gem(window, x, y, offset, tile1, gemTextures[randomGem]);
+                    tileSequence = false;
+                    x += offset.x;
+                } else {
+                    gems[i][j] = new Gem(window, x, y, offset, tile2, gemTextures[randomGem]);
+                    tileSequence = true;
+                    x += offset.x;
                 }
+            } else {
+                if(tileSequence)
+                    tileSequence = false;
+                else
+                    tileSequence = true;
+                x += offset.x;
             }
-
         }
+        x = originX;
+        y += offset.y;
     }
 }
 
 void Board::loadResources() {
     try {
-        tile1->loadFromFile(resourcePath() + "tile_1.png");
-        tile2->loadFromFile(resourcePath() + "tile_2.png");
-        h_bomb->loadFromFile(resourcePath() + "h_bomb.png");
-        v_bomb->loadFromFile(resourcePath() + "v_bomb.png");
+        tile1.loadFromFile(resourcePath() + "tile_1.png");
+        tile2.loadFromFile(resourcePath() + "tile_2.png");
+        h_bomb.loadFromFile(resourcePath() + "h_bomb.png");
+        v_bomb.loadFromFile(resourcePath() + "v_bomb.png");
+        for(int i = 0; i < gemTextures.size(); ++i) {
+            gemTextures[i].loadFromFile(resourcePath() + gemIcons[i]);
+        }
     }
     catch (std::exception& e) {
         std::cout << e.what() << "\n";
     }
-    sprite1->setTexture(*tile1);
-    sprite2->setTexture(*tile2);
-    sprite_h_bomb->setTexture(*h_bomb);
-    sprite_v_bomb->setTexture(*v_bomb);
-    for(int i = 0; i < gemTextures.size(); ++i) {
-        gemTextures[i]->loadFromFile(resourcePath() + gemIcons[i]);
-        gemSprites[i]->setTexture(*gemTextures[i]);
-    }
+    sprite1.setTexture(tile1);
+    sprite2.setTexture(tile2);
+    sprite_h_bomb.setTexture(h_bomb);
+    sprite_v_bomb.setTexture(v_bomb);
+
 }
