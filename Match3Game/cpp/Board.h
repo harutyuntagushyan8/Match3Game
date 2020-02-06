@@ -16,6 +16,8 @@
 
 class Board {
 private:
+    int originX;
+    int originY;
     int rows;
     int columns;
     std::vector<std::vector<Gem*>> gems;
@@ -32,7 +34,7 @@ private:
     void loadResources();
 
 public:
-    Board(int w, int h, int holes);
+    Board(int x, int y, int w, int h, int holes);
     ~Board();
     int getRows();
     int getColumns();

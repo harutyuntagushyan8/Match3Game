@@ -17,6 +17,8 @@ const int WINDOW_HEIGHT = 800;
 const int ROWS = 10;
 const int COLUMNS = 10;
 const int HOLESCOUNT = 3;
+const int X = 50;
+const int Y = 50;
 
 class Game {
 private:
@@ -30,9 +32,6 @@ private:
     sf::Event sfEvent;
     Board* board;
     sf::Image icon;
-    sf::Texture texture;
-    sf::Sprite sprite;
-    sf::Font font;
     sf::Music music;
     sf::Vector2f mousePos;
 

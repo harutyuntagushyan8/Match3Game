@@ -5,8 +5,11 @@
 
 #include "Board.h"
 
-Board::Board(int r, int c, int holeCount) : rows(r), columns(c) {
-    gems.reserve(rows * columns);
+Board::Board(int x, int y, int r, int c, int holeCount) : originX(x), originY(y), rows(r), columns(c) {
+    gems.reserve(rows);
+    for(int i = 0; i < rows; ++i) {
+        gems[i].reserve(columns);
+    }
     this->holeCount = holeCount;
     random();
     loadResources();
@@ -60,10 +63,10 @@ void Board::createGems() {
                 if(i * rows + j != holes[index]) {
                     int randomGem = std::rand() % gemIcons.size();
                     if(tileSequence) {
-                        gems[i][j] = new Gem(tile1, gemTextures[1]);
+                        //gems[i][j] = new Gem(tile1, gemTextures[1]);
                         tileSequence = false;
                     } else {
-                        gems[i][j] = new Gem(tile2, gemTextures[1]);
+                        //gems[i][j] = new Gem(tile2, gemTextures[1]);
                         tileSequence = true;
                     }
                 }

@@ -28,7 +28,7 @@ void Game::initWindow() {
     music.openFromFile(resourcePath() + "nice_music.ogg");
 
     // Initialize board
-    board = new Board(ROWS, COLUMNS, HOLESCOUNT);
+    board = new Board(X, Y, ROWS, COLUMNS, HOLESCOUNT);
 
 }
 

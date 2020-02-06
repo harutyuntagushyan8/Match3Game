@@ -5,7 +5,7 @@
 
 #include "Gem.h"
 
-Gem::Gem(sf::Texture* textureBackground, sf::Texture* textureForeground) {
+Gem::Gem(int x, int y, sf::Texture* textureBackground, sf::Texture* textureForeground) {
     this->textureBackground = textureBackground;
     this->textureForeground = textureForeground;
     spriteBackground->setTexture(*textureBackground);
