@@ -1,24 +1,30 @@
 //
-// Created by Harutyun Tagushyan on 2020-02-02.
+// Created by Harutyun Tagushyan on 2020-02-07.
 // Copyright (c) 2020 Harutyun Tagushyan. All rights reserved.
 //
 
 #include "Game.h"
 #include "ResourcePath.hpp"
 
+std::stack<State*> states;
+
 // Constructors/Destructors
 Game::Game() {
     initWindow();
+    initStates();
 }
 
 Game::~Game() {
     delete window;
-    delete board;
+    while (!states.empty()) {
+        delete states.top();
+        states.pop();
+    }
 }
 
-// Initialize window
+// Initializer functions
 void Game::initWindow() {
-    window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Match3 Game");
+    window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), TITLE);
     window->setFramerateLimit(120);
     window->setVerticalSyncEnabled(false);
 
@@ -26,10 +32,6 @@ void Game::initWindow() {
     window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
     music.openFromFile(resourcePath() + "nice_music.ogg");
-
-    // Initialize board
-    board = new Board(window, X, Y, ROWS, COLUMNS,OFFSET, HOLESCOUNT);
-
 }
 
 // Update events
@@ -46,26 +48,36 @@ void Game::updateSFMLEvents() {
     }
 }
 
-// Update all in game
+// Update all in entities
 void Game::update() {
     updateSFMLEvents();
 
-    board->update();
+    if(!states.empty()) {
+        states.top()->update();
+    }
 }
 
-// Render window
+// Render into window
 void Game::render() {
-    window->clear(sf::Color(100, 120, 130, 255));
-    board->render();
+    window->clear();
+
+    if(!states.empty()) {
+        states.top()->render();
+    }
+
     window->display();
 }
 
+// Run game loop
 void Game::run() {
     music.play();
     while (window->isOpen()) {
+        updateSFMLEvents();
         update();
         render();
     }
 }
 
-
+void Game::initStates() {
+    states.push(new MainMenuState(window));
+}

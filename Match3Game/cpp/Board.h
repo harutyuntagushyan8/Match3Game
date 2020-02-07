@@ -11,8 +11,6 @@
 #include <cstring>
 #include "Gem.h"
 #include "ResourcePath.hpp"
-#include <exception>
-#include <iostream>
 
 class Board {
 private:
@@ -24,7 +22,6 @@ private:
     sf::Vector2i offset;
     std::vector<std::vector<Gem*>> gems;
     std::vector<sf::Texture*> gemTextures;
-    sf::Texture* z;
     sf::Texture* tile1, *tile2, *h_bomb, *v_bomb;
     std::vector<int> holes;
     int holeCount;

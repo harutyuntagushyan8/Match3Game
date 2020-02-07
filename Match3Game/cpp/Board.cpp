@@ -16,10 +16,10 @@ Board::Board(sf::RenderWindow* window, int x, int y, int r, int c, sf::Vector2i 
     for(int i = 0; i < gemTextures.size(); ++i) {
         gemTextures[i] = new sf::Texture;
     }
+
     random();
     loadResources();
     createGems();
-
 }
 
 void Board::update() {
@@ -64,37 +64,28 @@ void Board::createGems() {
                 int randomGem = std::rand() % gemTextures.size();
                 if(tileSequence) {
                     gems[i][j] = new Gem(window, x, y, offset, tile1, gemTextures[randomGem]);
-                    tileSequence = false;
-                    x += offset.x;
                 } else {
                     gems[i][j] = new Gem(window, x, y, offset, tile2, gemTextures[randomGem]);
-                    tileSequence = true;
-                    x += offset.x;
                 }
+                x += offset.x;
+                tileSequence = !tileSequence;
             } else {
-                if(tileSequence)
-                    tileSequence = false;
-                else
-                    tileSequence = true;
+                tileSequence = !tileSequence;
                 x += offset.x;
             }
         }
+        tileSequence = !tileSequence;
         x = originX;
         y += offset.y;
     }
 }
 
 void Board::loadResources() {
-    try {
-        tile1->loadFromFile(resourcePath() + "tile_1.png");
-        tile2->loadFromFile(resourcePath() + "tile_2.png");
-        h_bomb->loadFromFile(resourcePath() + "h_bomb.png");
-        v_bomb->loadFromFile(resourcePath() + "v_bomb.png");
-        for(int i = 0; i < gemTextures.size(); ++i) {
-            gemTextures[i]->loadFromFile(resourcePath() + "blue.png");
-        }
-    }
-    catch (std::exception& e) {
-        std::cout << e.what() << "\n";
+    tile1->loadFromFile(resourcePath() + "tile_1.png");
+    tile2->loadFromFile(resourcePath() + "tile_2.png");
+    h_bomb->loadFromFile(resourcePath() + "h_bomb.png");
+    v_bomb->loadFromFile(resourcePath() + "v_bomb.png");
+    for(int i = 0; i < gemTextures.size(); ++i) {
+        gemTextures[i]->loadFromFile(resourcePath() + gemIcons[i]);
     }
 }

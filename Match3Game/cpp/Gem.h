@@ -13,14 +13,13 @@ class Gem {
 private:
     int x;
     int y;
-    sf::Texture* textureBackground;
-    sf::Texture* textureForeground;
-    sf::Sprite spriteBackground;
-    sf::Sprite spriteForeground;
+    sf::Sprite* spriteBackground;
+    sf::Sprite* spriteForeground;
     sf::RenderWindow* window;
 
 public:
     Gem(sf::RenderWindow*, int, int, sf::Vector2i, sf::Texture*, sf::Texture*);
+    ~Gem();
     void update();
     void render();
     void updateSFMLEvents();
