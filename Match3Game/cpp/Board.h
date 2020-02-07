@@ -23,9 +23,9 @@ private:
     sf::RenderWindow* window;
     sf::Vector2i offset;
     std::vector<std::vector<Gem*>> gems;
-    std::vector<sf::Texture> gemTextures;
-    sf::Texture tile1, tile2, h_bomb, v_bomb;
-    sf::Sprite sprite1, sprite2, sprite_h_bomb, sprite_v_bomb;
+    std::vector<sf::Texture*> gemTextures;
+    sf::Texture* z;
+    sf::Texture* tile1, *tile2, *h_bomb, *v_bomb;
     std::vector<int> holes;
     int holeCount;
     std::vector<std::string> gemIcons = {"blue.png", "green.png", "orange.png", "red.png", "violet.png"};
@@ -37,8 +37,6 @@ private:
 public:
     Board(sf::RenderWindow* window, int x, int y, int w, int h, sf::Vector2i offset, int holes);
     ~Board();
-    int getRows();
-    int getColumns();
     void update();
     void render();
     void updateSFMLEvents();

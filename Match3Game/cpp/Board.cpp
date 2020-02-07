@@ -7,20 +7,19 @@
 
 Board::Board(sf::RenderWindow* window, int x, int y, int r, int c, sf::Vector2i offset, int holeCount) :
                         window(window), originX(x), originY(y), rows(r), columns(c), offset(offset), holeCount(holeCount) {
+    tile1 = new sf::Texture;
+    tile2 = new sf::Texture;
+    h_bomb = new sf::Texture;
+    v_bomb = new sf::Texture;
     gems.resize(rows, std::vector<Gem*>(columns));
     gemTextures.resize(gemIcons.size());
+    for(int i = 0; i < gemTextures.size(); ++i) {
+        gemTextures[i] = new sf::Texture;
+    }
     random();
     loadResources();
     createGems();
 
-}
-
-int Board::getRows() {
-    return rows;
-}
-
-int Board::getColumns() {
-    return columns;
 }
 
 void Board::update() {
@@ -87,20 +86,15 @@ void Board::createGems() {
 
 void Board::loadResources() {
     try {
-        tile1.loadFromFile(resourcePath() + "tile_1.png");
-        tile2.loadFromFile(resourcePath() + "tile_2.png");
-        h_bomb.loadFromFile(resourcePath() + "h_bomb.png");
-        v_bomb.loadFromFile(resourcePath() + "v_bomb.png");
+        tile1->loadFromFile(resourcePath() + "tile_1.png");
+        tile2->loadFromFile(resourcePath() + "tile_2.png");
+        h_bomb->loadFromFile(resourcePath() + "h_bomb.png");
+        v_bomb->loadFromFile(resourcePath() + "v_bomb.png");
         for(int i = 0; i < gemTextures.size(); ++i) {
-            gemTextures[i].loadFromFile(resourcePath() + gemIcons[i]);
+            gemTextures[i]->loadFromFile(resourcePath() + "blue.png");
         }
     }
     catch (std::exception& e) {
         std::cout << e.what() << "\n";
     }
-    sprite1.setTexture(tile1);
-    sprite2.setTexture(tile2);
-    sprite_h_bomb.setTexture(h_bomb);
-    sprite_v_bomb.setTexture(v_bomb);
-
 }

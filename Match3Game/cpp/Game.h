@@ -17,8 +17,8 @@ const int WINDOW_HEIGHT = 1600;
 const int ROWS = 10;
 const int COLUMNS = 10;
 const int HOLESCOUNT = 3;
-const int X = 350;
-const int Y = 350;
+const int X = 300;
+const int Y = 300;
 const sf::Vector2i OFFSET(100,100);
 
 class Game {
