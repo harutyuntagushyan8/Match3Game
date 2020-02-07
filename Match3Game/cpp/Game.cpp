@@ -31,7 +31,7 @@ void Game::initWindow() {
     icon.loadFromFile(resourcePath() + "icon.png");
     window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
-    music.openFromFile(resourcePath() + "nice_music.ogg");
+    music.openFromFile(resourcePath() + "music.ogg");
 }
 
 // Update events

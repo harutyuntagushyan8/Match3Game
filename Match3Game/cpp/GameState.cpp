@@ -38,7 +38,7 @@ void GameState::update() {
 }
 
 void GameState::render() {
-    window->clear(sf::Color(100, 120, 130, 255));
+    window->clear(sf::Color(82, 96, 102, 255));
     board->render();
 }
 
