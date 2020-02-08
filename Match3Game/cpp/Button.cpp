@@ -21,10 +21,7 @@ Button::Button(sf::RenderWindow* window, float x, float y, float width, float he
     this->text.setFillColor(sf::Color::Black);
     this->text.setString(text);
     this->text.setCharacterSize(120);
-    this->text.setPosition(
-            window->getSize().x / 2.0f -  shape.getSize().x / 2.0f,
-            window->getSize().y / 2.0f -  shape.getSize().y / 2.0f + this->text.getLocalBounds().height / 2.0f
-    );
+    this->text.setPosition(x + width/2 - this->text.getLocalBounds().width/2, y + height/2 - this->text.getLocalBounds().height);
 
     this->idleColor = idleColor;
     this->hoverColor = hoverColor;

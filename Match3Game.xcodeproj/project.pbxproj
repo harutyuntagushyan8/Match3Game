@@ -25,9 +25,9 @@
 		001FF1EC23E60D5B00CB58CF /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 001FF1EB23E60D5B00CB58CF /* icon.png */; };
 		D7E6E1518B9367B6BAB530C3 /* GameState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7E6E3A1DB5BA3464C0475D3 /* GameState.cpp */; };
 		D7E6E32FAD1F0B88C6DBE2D9 /* State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7E6E97903D45BA6AD470768 /* State.cpp */; };
+		D7E6E3FBE88D4030614821E4 /* screen.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D7E6E9F4965BFD2B2C955F4C /* screen.jpg */; };
 		D7E6E4C81C43A4382A1B3CBD /* Button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7E6EB9117BE326CBB6A4694 /* Button.cpp */; };
 		D7E6E52096C425FAA627BAAD /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7E6E3101D24D62B0066CB05 /* Game.cpp */; };
-		D7E6E8EDD841072B69640057 /* welcome.png in Resources */ = {isa = PBXBuildFile; fileRef = D7E6EB051E105A25D3CE3548 /* welcome.png */; };
 		D7E6EB21EA6801AB35C30EB3 /* Sansation_Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D7E6E6E595A33FACB5A54D83 /* Sansation_Italic.ttf */; };
 		D7E6EC00F6761F647613E292 /* music.ogg in Resources */ = {isa = PBXBuildFile; fileRef = D7E6EA722E02657AE9760016 /* music.ogg */; };
 		D7E6ED6E7401D8692B312B8B /* Board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7E6E6415EF616D7206EC70D /* Board.cpp */; };
@@ -66,10 +66,10 @@
 		D7E6E84373DED536DEBBC793 /* MainMenuState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainMenuState.cpp; sourceTree = "<group>"; };
 		D7E6E8E1D7F7272B7BA56BEF /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
 		D7E6E97903D45BA6AD470768 /* State.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = State.cpp; sourceTree = "<group>"; };
+		D7E6E9F4965BFD2B2C955F4C /* screen.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = screen.jpg; sourceTree = "<group>"; };
 		D7E6EA50F759FBE08CEC40A5 /* GameState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameState.h; sourceTree = "<group>"; };
 		D7E6EA722E02657AE9760016 /* music.ogg */ = {isa = PBXFileReference; lastKnownFileType = file.ogg; path = music.ogg; sourceTree = "<group>"; };
 		D7E6EAA4ACB21488BDD768EC /* Board.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Board.h; sourceTree = "<group>"; };
-		D7E6EB051E105A25D3CE3548 /* welcome.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = welcome.png; sourceTree = "<group>"; };
 		D7E6EB9117BE326CBB6A4694 /* Button.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Button.cpp; sourceTree = "<group>"; };
 		D7E6EDACE6407414EA3DC442 /* Button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Button.h; sourceTree = "<group>"; };
 		D7E6EF571CECFF30728BE202 /* State.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = State.h; sourceTree = "<group>"; };
@@ -141,9 +141,9 @@
 				001FF1C723E6084300CB58CF /* tile_2.png */,
 				001FF1CA23E6084300CB58CF /* v_bomb.png */,
 				001FF1CD23E6084300CB58CF /* violet.png */,
-				D7E6EB051E105A25D3CE3548 /* welcome.png */,
 				D7E6E6E595A33FACB5A54D83 /* Sansation_Italic.ttf */,
 				D7E6EA722E02657AE9760016 /* music.ogg */,
+				D7E6E9F4965BFD2B2C955F4C /* screen.jpg */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -249,9 +249,9 @@
 				001FF1E523E60C8300CB58CF /* tile_2.png in Resources */,
 				001FF1E623E60C8300CB58CF /* v_bomb.png in Resources */,
 				001FF1E723E60C8300CB58CF /* violet.png in Resources */,
-				D7E6E8EDD841072B69640057 /* welcome.png in Resources */,
 				D7E6EB21EA6801AB35C30EB3 /* Sansation_Italic.ttf in Resources */,
 				D7E6EC00F6761F647613E292 /* music.ogg in Resources */,
+				D7E6E3FBE88D4030614821E4 /* screen.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

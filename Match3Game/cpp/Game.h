@@ -23,7 +23,6 @@ private:
     sf::Event sfEvent;
     sf::Image icon;
     sf::Music music;
-    //std::stack<State*> states;
 
     const int WINDOW_WIDTH = 1500;
     const int WINDOW_HEIGHT = 1500;

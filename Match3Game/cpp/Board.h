@@ -10,7 +10,10 @@
 #include <cstdlib>
 #include <cstring>
 #include "Gem.h"
-#include "ResourcePath.hpp"
+#include <stack>
+
+class State;
+extern std::stack<State*> states;
 
 class Board {
 private:
@@ -21,15 +24,18 @@ private:
     sf::RenderWindow* window;
     sf::Vector2i offset;
     std::vector<std::vector<Gem*>> gems;
-    std::vector<sf::Texture*> gemTextures;
-    sf::Texture* tile1, *tile2, *h_bomb, *v_bomb;
     std::vector<int> holes;
     int holeCount;
+    std::vector<sf::Sprite> menuGems;
+    std::vector<sf::Texture*> gemTextures;
+    sf::Texture* tile1, *tile2, *h_bomb, *v_bomb, *bomb;
     std::vector<std::string> gemIcons = {"blue.png", "green.png", "orange.png", "red.png", "violet.png"};
+    std::vector<std::string> gemCounts = {"3", "5", "8", "6", "9"};
 
+    void initBoard();
+    void loadResources();
     void random();
     void createGems();
-    void loadResources();
 
 public:
     Board(sf::RenderWindow* window, int x, int y, int w, int h, sf::Vector2i offset, int holes);

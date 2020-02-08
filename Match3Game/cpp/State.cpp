@@ -6,7 +6,7 @@
 #include "State.h"
 
 State::~State() {
-
+    delete window;
 }
 
 State::State(sf::RenderWindow* window) {

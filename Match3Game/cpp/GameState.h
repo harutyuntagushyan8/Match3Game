@@ -8,17 +8,28 @@
 
 #include "State.h"
 #include "Board.h"
-#include <stack>
+
 
 class GameState : public State {
-protected:
+private:
     void initWindow();
-    void updateSFMLEvents();
-    void update();
-    void render();
+    void loadResources();
 
     // Variables
     Board* board;
+    sf::RectangleShape mainShape;
+    sf::Font font;
+    sf::RectangleShape shapeForMoveCount;
+    std::vector<sf::Sprite> menuGems;
+    sf::Text text;
+    std::vector<sf::Text> gemTexts;
+    const int moveCount = 30;
+    const int figureCount = 5;
+    std::vector<sf::Texture*> gemTextures;
+    sf::Texture* tile1, *tile2, *h_bomb, *v_bomb, *bomb;
+    std::vector<std::string> gemIcons = {"blue.png", "green.png", "orange.png", "red.png", "violet.png"};
+    std::vector<std::string> gemCounts = {"3", "5", "8", "6", "9"};
+
     const int ROWS = 6;
     const int COLUMNS = 6;
     const int HOLESCOUNT = 3;
@@ -28,7 +39,9 @@ protected:
 
 public:
     GameState(sf::RenderWindow* window);
-    ~GameState();
+    void updateSFMLEvents();
+    void update();
+    void render();
 };
 
 #endif //MATCH3GAME_GAMESTATE_H

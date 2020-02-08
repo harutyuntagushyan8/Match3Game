@@ -31,6 +31,7 @@ public:
     virtual void updateSFMLEvents() = 0;
     virtual void updateMousePos();
     sf::Vector2i getMousePos();
+
 };
 
 

@@ -22,6 +22,10 @@ Game::~Game() {
     }
 }
 
+void Game::initStates() {
+    states.push(new MainMenuState(window));
+}
+
 // Initializer functions
 void Game::initWindow() {
     window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), TITLE);
@@ -78,6 +82,3 @@ void Game::run() {
     }
 }
 
-void Game::initStates() {
-    states.push(new MainMenuState(window));
-}

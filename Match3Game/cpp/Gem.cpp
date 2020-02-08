@@ -15,8 +15,7 @@ Gem::Gem(sf::RenderWindow* window, int x, int y, sf::Vector2i offset, sf::Textur
     spriteBackground->setPosition(x, y);
 
     spriteForeground->setTexture(*gemTexture);
-    spriteForeground->setTextureRect(sf::IntRect(x + offset.x/5, y + offset.y/5, 3 * offset.x/5, 3 * offset.y/5));
-    spriteForeground->setPosition(x + offset.x/5, y + offset.y/5);
+    spriteForeground->setPosition(x + offset.x/2 - gemTexture->getSize().x/2, y + offset.y/2 - gemTexture->getSize().y/2);
 }
 
 Gem::~Gem() {

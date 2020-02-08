@@ -11,11 +11,8 @@
 #include "ResourcePath.hpp"
 
 class MainMenuState : public State {
-protected:
+private:
     void initWindow();
-    void updateSFMLEvents();
-    void update();
-    void render();
 
     // Variables
     Button* startButton;
@@ -26,7 +23,9 @@ protected:
 
 public:
     MainMenuState(sf::RenderWindow* window);
-    ~MainMenuState();
+    void updateSFMLEvents();
+    void update();
+    void render();
 };
 
 

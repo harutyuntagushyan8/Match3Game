@@ -5,23 +5,23 @@
 
 #include "MainMenuState.h"
 
-MainMenuState::~MainMenuState() {
-    delete startButton;
-}
-
 MainMenuState::MainMenuState(sf::RenderWindow* window) : State(window) {
     initWindow();
 }
 
 void MainMenuState::initWindow() {
     font.loadFromFile(resourcePath() + "Sansation_Italic.ttf");
-    backgroundTexture.loadFromFile(resourcePath() + "welcome.png");
+    backgroundTexture.loadFromFile(resourcePath() + "screen.jpg");
     welcomeScreen.setTexture(backgroundTexture);
     float scaleX  = (float)window->getSize().x / backgroundTexture.getSize().x;
     float scaleY  = (float)window->getSize().y / backgroundTexture.getSize().y;
     welcomeScreen.setScale(scaleX, scaleY);
     startButton = new Button(window, window->getSize().x/2 - 350, window->getSize().y/2 - 150, 700, 300, font,
-            "Start Game", sf::Color(100,200,200,255), sf::Color(100,0,100,255), sf::Color(50,0,50,255));
+            "Start Game", sf::Color(100,0,100,255), sf::Color(50,0,50,255), sf::Color(50,0,50,255));
+}
+
+void MainMenuState::updateSFMLEvents() {
+
 }
 
 void MainMenuState::render() {
@@ -35,9 +35,4 @@ void MainMenuState::update() {
     startButton->update(getMousePos());
 }
 
-void MainMenuState::updateSFMLEvents() {
-    if(startButton->isPressed()) {
-
-    }
-}
 
