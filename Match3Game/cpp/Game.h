@@ -24,9 +24,9 @@ private:
     sf::Image icon;
     sf::Music music;
 
-    const int WINDOW_WIDTH = 1500;
-    const int WINDOW_HEIGHT = 1500;
-    const char* TITLE = "Match3 Game";
+     const int WINDOW_WIDTH = 1500;
+     const int WINDOW_HEIGHT = 1500;
+     const std::string TITLE = "Match3 Game";
 
 public:
     Game();

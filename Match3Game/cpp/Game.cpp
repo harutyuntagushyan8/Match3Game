@@ -5,6 +5,8 @@
 
 #include "Game.h"
 #include "ResourcePath.hpp"
+#include <fstream>
+#include <sstream>
 
 std::stack<State*> states;
 
@@ -81,4 +83,3 @@ void Game::run() {
         render();
     }
 }
-

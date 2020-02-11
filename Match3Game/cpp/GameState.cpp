@@ -3,6 +3,7 @@
 // Copyright (c) 2020 Harutyun Tagushyan. All rights reserved.
 //
 
+#include <iostream>
 #include "GameState.h"
 #include "ResourcePath.hpp"
 
@@ -67,21 +68,42 @@ void GameState::loadResources() {
 
 void GameState::updateSFMLEvents() {
     // Process events
-    while (window->pollEvent(sfEvent)) {
-        // Close window: exit
+    while (window->waitEvent(sfEvent)) {
         if (sfEvent.type == sf::Event::Closed) {
             window->close();
         }
         if(sfEvent.type == sf::Event::KeyPressed && sfEvent.key.code == sf::Keyboard::Escape) {
             window->close();
         }
+        if (sfEvent.type == sf::Event::MouseButtonPressed && sfEvent.mouseButton.button == sf::Mouse::Left) {
+            mousePos = sf::Mouse::getPosition(*window);
+            if(mousePos.x <= 1200 && mousePos.x >= 300 &&
+                mousePos.y <= 1200 && mousePos.y >= 300) {
+                clickedPos = mousePos;
+                board->updateMouseClickedPos(clickedPos);
+                std::cout << "Click ";
+                std::cout << "x = " << mousePos.x << " y = " << mousePos.y << "\n";
+                continue;
+            }
+        }
+        if (sfEvent.type == sf::Event::MouseButtonReleased) {
+            mousePos = sf::Mouse::getPosition(*window);
+            if(mousePos.x <= 1200 && mousePos.x >= 300 &&
+                mousePos.y <= 1200 && mousePos.y >= 300) {
+                releasedPos = mousePos;
+                board->updateMouseReleasedPos(releasedPos);
+                std::cout << "Release ";
+                std::cout << "x = " << mousePos.x << " y = " << mousePos.y << "\n";
+                break;
+            }
+        }
     }
 }
 
 void GameState::update() {
     updateSFMLEvents();
-
-    board->update();
+    //updateMousePos();
+    //board->update();
 }
 
 void GameState::render() {

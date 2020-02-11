@@ -5,6 +5,8 @@
 
 #include "Board.h"
 #include "ResourcePath.hpp"
+#include <iostream>
+#include <cmath>
 
 Board::Board(sf::RenderWindow* window, int x, int y, int r, int c, sf::Vector2i offset, int holeCount) :
                         window(window), originX(x), originY(y), rows(r), columns(c), offset(offset), holeCount(holeCount) {
@@ -15,14 +17,13 @@ Board::Board(sf::RenderWindow* window, int x, int y, int r, int c, sf::Vector2i 
 }
 
 void Board::initBoard() {
+    click = 0;
     tile1 = new sf::Texture;
     tile2 = new sf::Texture;
     h_bomb = new sf::Texture;
     v_bomb = new sf::Texture;
     bomb = new sf::Texture;
     gems.resize(rows, std::vector<Gem*>(columns));
-    //menuGems.resize(gemIcons.size());
-    //gemTextures.resize(gemIcons.size());
     for(int i = 0; i < gemIcons.size(); ++i) {
         gemTextures.push_back(new sf::Texture());
     }
@@ -47,7 +48,26 @@ void Board::loadResources() {
 }
 
 void Board::update() {
+    updateSFMLEvents();
+}
 
+void Board::updateMouseClickedPos(sf::Vector2i pos) {
+    clickedPos = pos;
+    std::cout << "Board Click ";
+    std::cout << "x = " << clickedPos.x << " y = " << clickedPos.y << "\n";
+}
+
+void Board::updateMouseReleasedPos(sf::Vector2i pos) {
+    releasedPos = pos;
+    std::cout << "Board Release ";
+    std::cout << "x = " << releasedPos.x << " y = " << releasedPos.y << "\n";
+    if(std::abs(clickedPos.x - releasedPos.x) <= 150 || std::abs(clickedPos.y - releasedPos.y) <= 150) {
+        int firstRow = (clickedPos.y - originY)/offset.y;
+        int firstColumn = (clickedPos.x - originX)/offset.x;
+        int secondRow = (releasedPos.y - originY)/offset.y;
+        int secondColumn = (releasedPos.x - originX)/offset.x;
+        swapGems(firstRow, firstColumn, secondRow, secondColumn);
+    }
 }
 
 void Board::render() {
@@ -87,20 +107,34 @@ void Board::createGems() {
             if(std::find(holes.begin(), holes.end(), i * rows + j) == holes.end()) {
                 int randomGem = std::rand() % gemIcons.size();
                 if(tileSequence) {
-                    gems[i][j] = new Gem(window, x, y, offset, tile1, gemTextures[randomGem]);
+                    gems[i][j] = new Gem(window, x, y, i, j, offset, tile1, randomGem, gemTextures[randomGem]);
                 } else {
-                    gems[i][j] = new Gem(window, x, y, offset, tile2, gemTextures[randomGem]);
+                    gems[i][j] = new Gem(window, x, y, i, j, offset, tile2, randomGem, gemTextures[randomGem]);
                 }
                 x += offset.x;
-                tileSequence = !tileSequence;
+                if(columns%2 == 0)
+                    tileSequence = !tileSequence;
+                else if(columns%2 != 0 && j != columns - 1)
+                    tileSequence = !tileSequence;
             } else {
-                tileSequence = !tileSequence;
+                if(columns%2 == 0)
+                    tileSequence = !tileSequence;
+                else if(columns%2 != 0 && j != columns - 1)
+                    tileSequence = !tileSequence;
                 x += offset.x;
             }
         }
         tileSequence = !tileSequence;
         x = originX;
         y += offset.y;
+    }
+}
+
+void Board::swapGems(int firstRow, int firstColumn, int secondRow, int secondColumn) {
+    if(std::find(holes.begin(), holes.end(), firstRow * columns + firstColumn) == holes.end() &&
+            std::find(holes.begin(), holes.end(), secondRow * columns + secondColumn) == holes.end()) {
+        gems[firstRow][firstColumn]->setGem(gemTextures[gems[secondRow][secondColumn]->gemNumber]);
+        gems[secondRow][secondColumn]->setGem(gemTextures[gems[firstRow][firstColumn]->gemNumber]);
     }
 }
 

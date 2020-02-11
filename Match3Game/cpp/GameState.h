@@ -23,8 +23,10 @@ private:
     std::vector<sf::Sprite> menuGems;
     sf::Text text;
     std::vector<sf::Text> gemTexts;
-    const int moveCount = 30;
+    int moveCount = 30;
     const int figureCount = 5;
+    sf::Vector2i clickedPos;
+    sf::Vector2i releasedPos;
     std::vector<sf::Texture*> gemTextures;
     sf::Texture* tile1, *tile2, *h_bomb, *v_bomb, *bomb;
     std::vector<std::string> gemIcons = {"blue.png", "green.png", "orange.png", "red.png", "violet.png"};

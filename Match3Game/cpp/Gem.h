@@ -11,14 +11,19 @@
 
 class Gem {
 private:
-    int x;
-    int y;
     sf::Sprite* spriteBackground;
     sf::Sprite* spriteForeground;
     sf::RenderWindow* window;
 
 public:
-    Gem(sf::RenderWindow*, int, int, sf::Vector2i, sf::Texture*, sf::Texture*);
+    Gem(sf::RenderWindow*, int, int, int, int, sf::Vector2i, sf::Texture*, int, sf::Texture*);
+    int x;
+    int y;
+    int row;
+    int column;
+    sf::Vector2i offset;
+    int gemNumber;
+    void setGem(sf::Texture*);
     ~Gem();
     void update();
     void render();

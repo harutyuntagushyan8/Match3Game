@@ -5,10 +5,6 @@
 
 #include "State.h"
 
-State::~State() {
-    delete window;
-}
-
 State::State(sf::RenderWindow* window) {
     this->window = window;
 }
@@ -19,4 +15,8 @@ void State::updateMousePos() {
 
 sf::Vector2i State::getMousePos() {
     return mousePos;
+}
+
+State::~State() {
+
 }

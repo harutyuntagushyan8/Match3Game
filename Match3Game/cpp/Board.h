@@ -22,20 +22,26 @@ private:
     int rows;
     int columns;
     sf::RenderWindow* window;
+    sf::Event sfEvent;
     sf::Vector2i offset;
     std::vector<std::vector<Gem*>> gems;
     std::vector<int> holes;
     int holeCount;
+    int click;
+    sf::Vector2i releasedPos;
+    sf::Vector2i clickedPos;
     std::vector<sf::Sprite> menuGems;
     std::vector<sf::Texture*> gemTextures;
     sf::Texture* tile1, *tile2, *h_bomb, *v_bomb, *bomb;
     std::vector<std::string> gemIcons = {"blue.png", "green.png", "orange.png", "red.png", "violet.png"};
     std::vector<std::string> gemCounts = {"3", "5", "8", "6", "9"};
+    int moveCount = 30;
 
     void initBoard();
     void loadResources();
     void random();
     void createGems();
+    void swapGems(int, int, int, int);
 
 public:
     Board(sf::RenderWindow* window, int x, int y, int w, int h, sf::Vector2i offset, int holes);
@@ -43,6 +49,8 @@ public:
     void update();
     void render();
     void updateSFMLEvents();
+    void updateMouseClickedPos(sf::Vector2i);
+    void updateMouseReleasedPos(sf::Vector2i);
 
 };
 
