@@ -40,7 +40,7 @@ void GameState::initWindow() {
         gemTexts.push_back(sf::Text());
         gemTexts[i].setFont(font);
         gemTexts[i].setFillColor(sf::Color::White);
-        gemTexts[i].setString(gemCounts[i]);
+        gemTexts[i].setString(std::to_string(gemCounts[i]));
         gemTexts[i].setCharacterSize(60);
         gemTexts[i].setPosition(x + 10, 80);
         x += 100.0f;
@@ -77,8 +77,8 @@ void GameState::updateSFMLEvents() {
         }
         if (sfEvent.type == sf::Event::MouseButtonPressed && sfEvent.mouseButton.button == sf::Mouse::Left) {
             mousePos = sf::Mouse::getPosition(*window);
-            if(mousePos.x <= 1200 && mousePos.x >= 300 &&
-                mousePos.y <= 1200 && mousePos.y >= 300) {
+            if(mousePos.x <= X + OFFSET.x * COLUMNS && mousePos.x >= X &&
+                mousePos.y <= Y + OFFSET.y * ROWS && mousePos.y >= X) {
                 clickedPos = mousePos;
                 board->updateMouseClickedPos(clickedPos);
                 std::cout << "Click ";
@@ -88,8 +88,8 @@ void GameState::updateSFMLEvents() {
         }
         if (sfEvent.type == sf::Event::MouseButtonReleased) {
             mousePos = sf::Mouse::getPosition(*window);
-            if(mousePos.x <= 1200 && mousePos.x >= 300 &&
-                mousePos.y <= 1200 && mousePos.y >= 300) {
+            if(mousePos.x <= X + OFFSET.x * COLUMNS && mousePos.x >= X &&
+                mousePos.y <= Y + OFFSET.y * ROWS && mousePos.y >= Y) {
                 releasedPos = mousePos;
                 board->updateMouseReleasedPos(releasedPos);
                 std::cout << "Release ";

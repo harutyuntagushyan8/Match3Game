@@ -135,6 +135,9 @@ void Board::swapGems(int firstRow, int firstColumn, int secondRow, int secondCol
             std::find(holes.begin(), holes.end(), secondRow * columns + secondColumn) == holes.end()) {
         gems[firstRow][firstColumn]->setGem(gemTextures[gems[secondRow][secondColumn]->gemNumber]);
         gems[secondRow][secondColumn]->setGem(gemTextures[gems[firstRow][firstColumn]->gemNumber]);
+        int tempGemNumber = gems[firstRow][firstColumn]->gemNumber;
+        gems[firstRow][firstColumn]->gemNumber = gems[secondRow][secondColumn]->gemNumber;
+        gems[secondRow][secondColumn]->gemNumber = tempGemNumber;
     }
 }
 

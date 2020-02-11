@@ -30,7 +30,7 @@ private:
     std::vector<sf::Texture*> gemTextures;
     sf::Texture* tile1, *tile2, *h_bomb, *v_bomb, *bomb;
     std::vector<std::string> gemIcons = {"blue.png", "green.png", "orange.png", "red.png", "violet.png"};
-    std::vector<std::string> gemCounts = {"3", "5", "8", "6", "9"};
+    std::vector<int> gemCounts = {3, 5, 8, 6, 9};
 
     const int ROWS = 6;
     const int COLUMNS = 6;

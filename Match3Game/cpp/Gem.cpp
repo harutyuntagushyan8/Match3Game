@@ -44,6 +44,6 @@ void Gem::update() {
 }
 
 void Gem::setGem(sf::Texture* texture) {
-    spriteForeground->setTexture(*texture);
+    spriteForeground->setTexture(*texture, true);
     spriteForeground->setPosition(this->x + this->offset.x/2 - texture->getSize().x/2, this->y + this->offset.y/2 - texture->getSize().y/2);
 }
