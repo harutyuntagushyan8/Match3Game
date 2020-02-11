@@ -9,6 +9,8 @@
 #include "SFML/Graphics.hpp"
 #include "ResourcePath.hpp"
 
+enum class GemType { Red, Green, Blue, Violet, Orange};
+
 class Gem {
 private:
     sf::Sprite* spriteBackground;
@@ -16,7 +18,7 @@ private:
     sf::RenderWindow* window;
 
 public:
-    Gem(sf::RenderWindow*, int, int, int, int, sf::Vector2i, sf::Texture*, int, sf::Texture*);
+    Gem(sf::RenderWindow*, int, int, int, int, sf::Vector2i, GemType, sf::Texture*, int, sf::Texture*);
     int x;
     int y;
     int row;
@@ -24,6 +26,7 @@ public:
     sf::Vector2i offset;
     int gemNumber;
     void setGem(sf::Texture*);
+    GemType type;
     ~Gem();
     void update();
     void render();

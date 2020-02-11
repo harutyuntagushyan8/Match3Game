@@ -5,12 +5,13 @@
 
 #include "Gem.h"
 
-Gem::Gem(sf::RenderWindow* window, int x, int y, int row, int column, sf::Vector2i offset, sf::Texture* tileTexture, int randomGem, sf::Texture* gemTexture) {
+Gem::Gem(sf::RenderWindow* window, int x, int y, int row, int column, sf::Vector2i offset, GemType type, sf::Texture* tileTexture, int randomGem, sf::Texture* gemTexture) {
     this->window = window;
     this->x = x;
     this->y = y;
     this->row = row;
     this->column = column;
+    this->type = type;
     this->gemNumber = randomGem;
     this->offset = offset;
 

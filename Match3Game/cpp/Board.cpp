@@ -17,7 +17,6 @@ Board::Board(sf::RenderWindow* window, int x, int y, int r, int c, sf::Vector2i 
 }
 
 void Board::initBoard() {
-    click = 0;
     tile1 = new sf::Texture;
     tile2 = new sf::Texture;
     h_bomb = new sf::Texture;
@@ -59,13 +58,13 @@ void Board::updateMouseClickedPos(sf::Vector2i pos) {
 
 void Board::updateMouseReleasedPos(sf::Vector2i pos) {
     releasedPos = pos;
-    std::cout << "Board Release ";
-    std::cout << "x = " << releasedPos.x << " y = " << releasedPos.y << "\n";
-    if(std::abs(clickedPos.x - releasedPos.x) <= 150 || std::abs(clickedPos.y - releasedPos.y) <= 150) {
-        int firstRow = (clickedPos.y - originY)/offset.y;
-        int firstColumn = (clickedPos.x - originX)/offset.x;
-        int secondRow = (releasedPos.y - originY)/offset.y;
-        int secondColumn = (releasedPos.x - originX)/offset.x;
+    int firstRow = (clickedPos.y - originY)/offset.y;
+    int firstColumn = (clickedPos.x - originX)/offset.x;
+    int secondRow = (releasedPos.y - originY)/offset.y;
+    int secondColumn = (releasedPos.x - originX)/offset.x;
+    int deltaX = clickedPos.x - releasedPos.x;
+    int deltaY = clickedPos.y - releasedPos.y;
+    if((std::abs(deltaX) <= offset.x && firstRow == secondRow) || (std::abs(deltaY) <= offset.y && firstColumn == secondColumn)) {
         swapGems(firstRow, firstColumn, secondRow, secondColumn);
     }
 }
@@ -99,6 +98,7 @@ void Board::random() {
 }
 
 void Board::createGems() {
+    srand((int) time(0));
     bool tileSequence = true;
     int x = originX;
     int y = originY;
@@ -107,9 +107,9 @@ void Board::createGems() {
             if(std::find(holes.begin(), holes.end(), i * rows + j) == holes.end()) {
                 int randomGem = std::rand() % gemIcons.size();
                 if(tileSequence) {
-                    gems[i][j] = new Gem(window, x, y, i, j, offset, tile1, randomGem, gemTextures[randomGem]);
+                    gems[i][j] = new Gem(window, x, y, i, j, offset, static_cast<GemType>(randomGem), tile1, randomGem, gemTextures[randomGem]);
                 } else {
-                    gems[i][j] = new Gem(window, x, y, i, j, offset, tile2, randomGem, gemTextures[randomGem]);
+                    gems[i][j] = new Gem(window, x, y, i, j, offset, static_cast<GemType>(randomGem), tile2, randomGem, gemTextures[randomGem]);
                 }
                 x += offset.x;
                 if(columns%2 == 0)
