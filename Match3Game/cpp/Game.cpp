@@ -74,7 +74,7 @@ void Game::render() {
 
 // Run game loop
 void Game::run() {
-    music.play();
+    //music.play();
     while (window->isOpen()) {
         updateSFMLEvents();
         update();

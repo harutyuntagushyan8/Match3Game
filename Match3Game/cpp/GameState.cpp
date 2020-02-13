@@ -35,27 +35,11 @@ void GameState::initWindow() {
         menuGems[i].setPosition(x, 20);
         x += 100.0f;
     }
-    x = 10.0f;
-    for(int i = 0; i < gemCounts.size(); ++i) {
-        gemTexts.push_back(sf::Text());
-        gemTexts[i].setFont(font);
-        gemTexts[i].setFillColor(sf::Color::White);
-        gemTexts[i].setString(std::to_string(gemCounts[i]));
-        gemTexts[i].setCharacterSize(60);
-        gemTexts[i].setPosition(x + 10, 80);
-        x += 100.0f;
-    }
-    text.setFont(font);
-    text.setFillColor(sf::Color::White);
-    text.setString(std::to_string(moveCount));
-    text.setCharacterSize(100);
-    text.setPosition(510 + 200/2 - text.getLocalBounds().width/2, 10);
 
     board = new Board(window, X, Y, ROWS, COLUMNS, OFFSET, HOLESCOUNT);
 }
 
 void GameState::loadResources() {
-    font.loadFromFile(resourcePath() + "Sansation_Italic.ttf");
     tile1->loadFromFile(resourcePath() + "tile_1.png");
     tile2->loadFromFile(resourcePath() + "tile_2.png");
     h_bomb->loadFromFile(resourcePath() + "h_bomb.png");
@@ -81,8 +65,6 @@ void GameState::updateSFMLEvents() {
                 mousePos.y <= Y + OFFSET.y * ROWS && mousePos.y >= X) {
                 clickedPos = mousePos;
                 board->updateMouseClickedPos(clickedPos);
-                std::cout << "Click ";
-                std::cout << "x = " << mousePos.x << " y = " << mousePos.y << "\n";
                 continue;
             }
         }
@@ -92,8 +74,6 @@ void GameState::updateSFMLEvents() {
                 mousePos.y <= Y + OFFSET.y * ROWS && mousePos.y >= Y) {
                 releasedPos = mousePos;
                 board->updateMouseReleasedPos(releasedPos);
-                std::cout << "Release ";
-                std::cout << "x = " << mousePos.x << " y = " << mousePos.y << "\n";
                 break;
             }
         }
@@ -102,20 +82,15 @@ void GameState::updateSFMLEvents() {
 
 void GameState::update() {
     updateSFMLEvents();
-    //updateMousePos();
-    //board->update();
+    board->update();
 }
 
 void GameState::render() {
     window->clear(sf::Color(82, 96, 102, 255));
     window->draw(mainShape);
     window->draw(shapeForMoveCount);
-    window->draw(text);
     for(int i = 0; i < menuGems.size(); ++i) {
         window->draw(menuGems[i]);
-    }
-    for(int i = 0; i < gemTexts.size(); ++i) {
-        window->draw(gemTexts[i]);
     }
     board->render();
 }

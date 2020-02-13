@@ -10,6 +10,7 @@
 #include <cstdlib>
 #include <cstring>
 #include "Gem.h"
+#include "State.h"
 #include <stack>
 
 class State;
@@ -22,23 +23,32 @@ private:
     int rows;
     int columns;
     sf::RenderWindow* window;
-    sf::Event sfEvent;
     sf::Vector2i offset;
     std::vector<std::vector<Gem*>> gems;
     std::vector<int> holes;
     int holeCount;
     sf::Vector2i releasedPos;
     sf::Vector2i clickedPos;
+    sf::Font font;
+    sf::Text scoreText;
+    int scoreValue = 20;
+    std::vector<sf::Text> gemsCountsText;
     std::vector<sf::Sprite> menuGems;
     std::vector<sf::Texture*> gemTextures;
     sf::Texture* tile1, *tile2, *h_bomb, *v_bomb, *bomb;
     std::vector<std::string> gemIcons = {"blue.png", "green.png", "orange.png", "red.png", "violet.png"};
-    std::vector<std::string> gemCounts = {"3", "5", "8", "6", "9"};
-    int moveCount = 30;
-    bool vertical;
-    bool horizontal;
+    std::vector<std::pair<GemType, int>> gemCounts = {std::make_pair(GemType::Blue,3), std::make_pair(GemType::Green,5), std::make_pair(GemType::Orange,8),
+                                                        std::make_pair(GemType::Red,6), std::make_pair(GemType::Violet,9)};
+
+    bool isBoardCorrect = true;
 
     void initBoard();
+    void initScoredGems();
+    void checkGemSwapping();
+    bool checkSimpleMatch();
+    void updateScoredGems(GemType);
+    bool check4Match();
+    bool checkSquareMatch();
     void loadResources();
     void random();
     void createGems();

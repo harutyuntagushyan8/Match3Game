@@ -18,12 +18,20 @@ Gem::Gem(sf::RenderWindow* window, int x, int y, int row, int column, sf::Vector
     spriteBackground = new sf::Sprite;
     spriteForeground = new sf::Sprite;
 
-    spriteBackground->setTexture(*tileTexture);
-    spriteBackground->setTextureRect(sf::IntRect(x, y, this->offset.x, this->offset.y));
-    spriteBackground->setPosition(this->x, this->y);
+    if(tileTexture != nullptr) {
+        spriteBackground->setTexture(*tileTexture);
+        spriteBackground->setTextureRect(sf::IntRect(x, y, this->offset.x, this->offset.y));
+        spriteBackground->setPosition(this->x, this->y);
+    } else {
+        spriteBackground->setColor(sf::Color(82, 96, 102, 255));
+    }
 
-    spriteForeground->setTexture(*gemTexture);
-    spriteForeground->setPosition(this->x + this->offset.x/2 - gemTexture->getSize().x/2, this->y + this->offset.y/2 - gemTexture->getSize().y/2);
+    if(gemTexture != nullptr) {
+        spriteForeground->setTexture(*gemTexture);
+        spriteForeground->setPosition(this->x + this->offset.x/2 - gemTexture->getSize().x/2, this->y + this->offset.y/2 - gemTexture->getSize().y/2);
+    } else {
+        spriteForeground = spriteBackground;
+    }
 }
 
 Gem::~Gem() {
@@ -44,7 +52,7 @@ void Gem::update() {
 
 }
 
-void Gem::setGem(sf::Texture* texture) {
+void Gem::setGemTexture(sf::Texture* texture) {
     spriteForeground->setTexture(*texture, true);
     spriteForeground->setPosition(this->x + this->offset.x/2 - texture->getSize().x/2, this->y + this->offset.y/2 - texture->getSize().y/2);
 }

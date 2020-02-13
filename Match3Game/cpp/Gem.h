@@ -9,7 +9,7 @@
 #include "SFML/Graphics.hpp"
 #include "ResourcePath.hpp"
 
-enum class GemType { Red, Green, Blue, Violet, Orange};
+enum class GemType { Red, Green, Blue, Violet, Orange, SolidColor};
 
 class Gem {
 private:
@@ -25,8 +25,9 @@ public:
     int column;
     sf::Vector2i offset;
     int gemNumber;
-    void setGem(sf::Texture*);
+    void setGemTexture(sf::Texture*);
     GemType type;
+    int matchCount = 0;
     ~Gem();
     void update();
     void render();

@@ -18,19 +18,13 @@ private:
     // Variables
     Board* board;
     sf::RectangleShape mainShape;
-    sf::Font font;
     sf::RectangleShape shapeForMoveCount;
     std::vector<sf::Sprite> menuGems;
-    sf::Text text;
-    std::vector<sf::Text> gemTexts;
-    int moveCount = 30;
-    const int figureCount = 5;
     sf::Vector2i clickedPos;
     sf::Vector2i releasedPos;
     std::vector<sf::Texture*> gemTextures;
     sf::Texture* tile1, *tile2, *h_bomb, *v_bomb, *bomb;
     std::vector<std::string> gemIcons = {"blue.png", "green.png", "orange.png", "red.png", "violet.png"};
-    std::vector<int> gemCounts = {3, 5, 8, 6, 9};
 
     const int ROWS = 6;
     const int COLUMNS = 6;
