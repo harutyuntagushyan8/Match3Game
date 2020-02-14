@@ -5,7 +5,6 @@
 
 #include "Board.h"
 #include "ResourcePath.hpp"
-#include <iostream>
 #include <cmath>
 
 Board::~Board() {
@@ -84,6 +83,9 @@ void Board::random() {
 void Board::update() {
     updateSFMLEvents();
     checkGemSwapping();
+    checkSimpleMatch();
+    updateScoredGems();
+    resetMatches();
 }
 
 void Board::updateMouseClickedPos(sf::Vector2i pos) {
@@ -103,14 +105,15 @@ void Board::checkGemSwapping() {
     int deltaY = clickedPos.y - releasedPos.y;
     if((std::abs(deltaX) <= offset.x && firstRow == secondRow) || (std::abs(deltaY) <= offset.y && firstColumn == secondColumn)) {
         swapGems(firstRow, firstColumn, secondRow, secondColumn);
-        if(checkSimpleMatch())
+        if(!checkSimpleMatch()) {
             swapGems(firstRow, firstColumn, secondRow, secondColumn);
+        }
     }
 }
 
 void Board::render() {
     window->draw(scoreText);
-    for(int i = 0; i < gemsCountsText.size(); ++i) {                                                                                                                                                                                                                                                    `
+    for(int i = 0; i < gemsCountsText.size(); ++i) {
         window->draw(gemsCountsText[i]);
     }
     for(int i = 0; i < rows; ++i) {
@@ -151,7 +154,9 @@ void Board::createGems() {
         x = originX;
         y += offset.y;
     }
-    //checkSimpleMatch();
+    while(checkSimpleMatch()) {
+
+    }
 }
 
 void Board::swapGems(int firstRow, int firstColumn, int secondRow, int secondColumn) {
@@ -159,9 +164,11 @@ void Board::swapGems(int firstRow, int firstColumn, int secondRow, int secondCol
             std::find(holes.begin(), holes.end(), secondRow * columns + secondColumn) == holes.end()) {
         gems[firstRow][firstColumn]->setGemTexture(gemTextures[gems[secondRow][secondColumn]->gemNumber]);
         gems[secondRow][secondColumn]->setGemTexture(gemTextures[gems[firstRow][firstColumn]->gemNumber]);
+
         int tempGemNumber = gems[firstRow][firstColumn]->gemNumber;
         gems[firstRow][firstColumn]->gemNumber = gems[secondRow][secondColumn]->gemNumber;
         gems[secondRow][secondColumn]->gemNumber = tempGemNumber;
+
         GemType tempType = gems[firstRow][firstColumn]->type;
         gems[firstRow][firstColumn]->type = gems[secondRow][secondColumn]->type;
         gems[secondRow][secondColumn]->type = tempType;
@@ -169,42 +176,100 @@ void Board::swapGems(int firstRow, int firstColumn, int secondRow, int secondCol
 }
 
 bool Board::checkSimpleMatch() {
-    for(int i = 1; i < rows -1; ++i) {
-            for (int j = 1; j < columns - 1; ++j) {
+    for(int i = 1; i < rows - 1; ++i) {
+        for (int j = 1; j < columns - 1; ++j) {
+            if (gems[i][j]->type == gems[i - 1][j]->type) {
                 if (gems[i][j]->type == gems[i + 1][j]->type) {
-                    if (gems[i][j]->type == gems[i - 1][j]->type) {
-                        for (int k = -1; k <= 1; ++k) {
-                            gems[i + k][j]->matchCount++;
-                            updateScoredGems(gems[i][j]->type);
-                        }
-                        for (int k = -1; k <= 1; ++k) {
-                            int randomGem = std::rand() % gemIcons.size();
-                            gems[i + k][j]->setGemTexture(gemTextures[randomGem]);
-                        }
-                        scoreValue--;
-                        scoreText.setString(std::to_string(scoreValue));
-                        std::cout << "Match found at " << i-1 << j << " and " << i << j << " and " << i+1 << j << "\n";
-                        return true;
+                    for (int k = -1; k <= 1; ++k) {
+                        gems[i + k][j]->matchCount++;
                     }
-                }
-
-                if (gems[i][j]->type == gems[i][j + 1]->type) {
-                    if (gems[i][j]->type == gems[i][j - 1]->type) {
-                        for (int k = -1; k <= 1; ++k) {
-                            gems[i][j + k]->matchCount++;
-                            updateScoredGems(gems[i][j]->type);
-                        }
-                        for (int k = -1; k <= 1; ++k) {
-                            int randomGem = std::rand() % gemIcons.size();
-                            gems[i][j + k]->setGemTexture(gemTextures[randomGem]);
-                        }
-                        scoreValue--;
-                        scoreText.setString(std::to_string(scoreValue));
-                        std::cout << "Match found at " << i << j-1 << " and " << i << j << " and " << i << j+1 << "\n";
-                        return true;
+                    for (int k = -1; k <= 1; ++k) {
+                        int randomGem = std::rand() % gemIcons.size();
+                        gems[i + k][j]->setGemTexture(gemTextures[randomGem]);
+                        gems[i + k][j]->setGemType(static_cast<GemType>(randomGem));
                     }
+                    return true;
                 }
             }
+
+            if (gems[i][j]->type == gems[i][j - 1]->type) {
+                if (gems[i][j]->type == gems[i][j + 1]->type) {
+                    for (int k = -1; k <= 1; ++k) {
+                        gems[i][j + k]->matchCount++;
+                    }
+                    for (int k = -1; k <= 1; ++k) {
+                        int randomGem = std::rand() % gemIcons.size();
+                        gems[i][j + k]->setGemTexture(gemTextures[randomGem]);
+                        gems[i][j + k]->setGemType(static_cast<GemType>(randomGem));
+                    }
+                    return true;
+                }
+            }
+        }
+    }
+    // Must check perimeter of board(last row)
+    for(int j = 1; j < columns - 1; ++j) {
+        if(gems[rows - 1][j]->type == gems[rows - 1][j - 1]->type) {
+            if(gems[rows - 1][j]->type == gems[rows - 1][j + 1]->type) {
+                for (int k = -1; k <= 1; ++k) {
+                    gems[rows - 1][j + k]->matchCount++;
+                }
+                for (int k = -1; k <= 1; ++k) {
+                    int randomGem = std::rand() % gemIcons.size();
+                    gems[rows - 1][j + k]->setGemTexture(gemTextures[randomGem]);
+                    gems[rows - 1][j + k]->setGemType(static_cast<GemType>(randomGem));
+                }
+                return true;
+            }
+        }
+    }
+    // first row
+    for(int j = 1; j < columns - 1; ++j) {
+        if(gems[0][j]->type == gems[0][j - 1]->type) {
+            if(gems[0][j]->type == gems[0][j + 1]->type) {
+                for (int k = -1; k <= 1; ++k) {
+                    gems[0][j + k]->matchCount++;
+                }
+                for (int k = -1; k <= 1; ++k) {
+                    int randomGem = std::rand() % gemIcons.size();
+                    gems[0][j + k]->setGemTexture(gemTextures[randomGem]);
+                    gems[0][j + k]->setGemType(static_cast<GemType>(randomGem));
+                }
+                return true;
+            }
+        }
+    }
+    // first column
+    for(int i = 1; i < rows - 1; ++i) {
+        if(gems[i][0]->type == gems[i - 1][0]->type) {
+            if(gems[i][0]->type == gems[i + 1][0]->type) {
+                for (int k = -1; k <= 1; ++k) {
+                    gems[i + k][0]->matchCount++;
+                }
+                for (int k = -1; k <= 1; ++k) {
+                    int randomGem = std::rand() % gemIcons.size();
+                    gems[i + k][0]->setGemTexture(gemTextures[randomGem]);
+                    gems[i + k][0]->setGemType(static_cast<GemType>(randomGem));
+                }
+                return true;
+            }
+        }
+    }
+    // last column
+    for(int i = 1; i < rows - 1; ++i) {
+        if(gems[i][columns - 1]->type == gems[i - 1][columns - 1]->type) {
+            if(gems[i][columns - 1]->type == gems[i + 1][columns - 1]->type) {
+                for (int k = -1; k <= 1; ++k) {
+                    gems[i + k][columns - 1]->matchCount++;
+                }
+                for (int k = -1; k <= 1; ++k) {
+                    int randomGem = std::rand() % gemIcons.size();
+                    gems[i + k][columns - 1]->setGemTexture(gemTextures[randomGem]);
+                    gems[i + k][columns - 1]->setGemType(static_cast<GemType>(randomGem));
+                }
+                return true;
+            }
+        }
     }
     return false;
 }
@@ -217,25 +282,35 @@ bool Board::checkSquareMatch() {
     return false;
 }
 
-void Board::updateScoredGems(GemType type) {
-    switch (type) {
-        case GemType::Blue :    gemCounts[0].second--;
-                                gemsCountsText[0].setString(std::to_string(gemCounts[0].second));
-                                break;
-        case GemType::Green :   gemCounts[1].second--;
-                                gemsCountsText[1].setString(std::to_string(gemCounts[1].second));
-                                break;
-        case GemType::Orange :  gemCounts[2].second--;
-                                gemsCountsText[2].setString(std::to_string(gemCounts[2].second));
-                                break;
-        case GemType::Red :     gemCounts[3].second--;
-                                gemsCountsText[3].setString(std::to_string(gemCounts[3].second));
-                                break;
-        case GemType::Violet :  gemCounts[4].second--;
-                                gemsCountsText[4].setString(std::to_string(gemCounts[4].second));
-                                break;
-        default:
-            break;
+void Board::updateScoredGems() {
+    for(int i = 0; i < rows; ++i) {
+        for(int j = 0; j < columns; ++j) {
+            if(gems[i][j]->matchCount != 0) {
+                switch (gems[i][j]->type) {
+                    case GemType::Blue :    gemCounts[0].second--;
+                        break;
+                    case GemType::Green :   gemCounts[1].second--;
+                        break;
+                    case GemType::Orange :  gemCounts[2].second--;
+                        break;
+                    case GemType::Red :     gemCounts[3].second--;
+                        break;
+                    case GemType::Violet :  gemCounts[4].second--;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
     }
 }
+
+void Board::resetMatches() {
+    for(int i = 0; i < rows; ++i) {
+        for(int j = 0; j < columns; ++j) {
+            gems[i][j]->matchCount = 0;
+        }
+    }
+}
+
 

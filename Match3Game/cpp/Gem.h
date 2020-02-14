@@ -26,6 +26,7 @@ public:
     sf::Vector2i offset;
     int gemNumber;
     void setGemTexture(sf::Texture*);
+    void setGemType(GemType);
     GemType type;
     int matchCount = 0;
     ~Gem();

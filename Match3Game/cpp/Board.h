@@ -40,13 +40,12 @@ private:
     std::vector<std::pair<GemType, int>> gemCounts = {std::make_pair(GemType::Blue,3), std::make_pair(GemType::Green,5), std::make_pair(GemType::Orange,8),
                                                         std::make_pair(GemType::Red,6), std::make_pair(GemType::Violet,9)};
 
-    bool isBoardCorrect = true;
-
     void initBoard();
     void initScoredGems();
     void checkGemSwapping();
     bool checkSimpleMatch();
-    void updateScoredGems(GemType);
+    void resetMatches();
+    void updateScoredGems();
     bool check4Match();
     bool checkSquareMatch();
     void loadResources();
