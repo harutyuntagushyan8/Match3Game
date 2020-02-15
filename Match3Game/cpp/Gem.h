@@ -9,7 +9,7 @@
 #include "SFML/Graphics.hpp"
 #include "ResourcePath.hpp"
 
-enum class GemType { Red, Green, Blue, Violet, Orange, SolidColor};
+enum class GemType { Blue, Green, Orange, Red, Violet, SolidColor};
 
 class Gem {
 private:

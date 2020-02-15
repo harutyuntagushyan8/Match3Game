@@ -5,6 +5,7 @@
 
 #include "Board.h"
 #include "ResourcePath.hpp"
+#include <iostream>
 #include <cmath>
 
 Board::~Board() {
@@ -101,12 +102,16 @@ void Board::checkGemSwapping() {
     int firstColumn = (clickedPos.x - originX)/offset.x;
     int secondRow = (releasedPos.y - originY)/offset.y;
     int secondColumn = (releasedPos.x - originX)/offset.x;
+    if(secondRow == firstRow && secondColumn == firstColumn) {
+        return;
+    }
     int deltaX = clickedPos.x - releasedPos.x;
     int deltaY = clickedPos.y - releasedPos.y;
-    if((std::abs(deltaX) <= offset.x && firstRow == secondRow) || (std::abs(deltaY) <= offset.y && firstColumn == secondColumn)) {
+    if((std::abs(deltaX) <= offset.x && firstRow == secondRow) ||
+        (std::abs(deltaY) <= offset.y && firstColumn == secondColumn)) {
         swapGems(firstRow, firstColumn, secondRow, secondColumn);
         if(!checkSimpleMatch()) {
-            swapGems(firstRow, firstColumn, secondRow, secondColumn);
+            swapGems(secondRow, secondColumn, firstRow, firstColumn);
         }
     }
 }
@@ -162,12 +167,13 @@ void Board::createGems() {
 void Board::swapGems(int firstRow, int firstColumn, int secondRow, int secondColumn) {
     if(std::find(holes.begin(), holes.end(), firstRow * columns + firstColumn) == holes.end() &&
             std::find(holes.begin(), holes.end(), secondRow * columns + secondColumn) == holes.end()) {
-        gems[firstRow][firstColumn]->setGemTexture(gemTextures[gems[secondRow][secondColumn]->gemNumber]);
-        gems[secondRow][secondColumn]->setGemTexture(gemTextures[gems[firstRow][firstColumn]->gemNumber]);
 
         int tempGemNumber = gems[firstRow][firstColumn]->gemNumber;
         gems[firstRow][firstColumn]->gemNumber = gems[secondRow][secondColumn]->gemNumber;
         gems[secondRow][secondColumn]->gemNumber = tempGemNumber;
+
+        gems[firstRow][firstColumn]->setGemTexture(gemTextures[gems[firstRow][firstColumn]->gemNumber]);
+        gems[secondRow][secondColumn]->setGemTexture(gemTextures[gems[secondRow][secondColumn]->gemNumber]);
 
         GemType tempType = gems[firstRow][firstColumn]->type;
         gems[firstRow][firstColumn]->type = gems[secondRow][secondColumn]->type;
@@ -312,5 +318,4 @@ void Board::resetMatches() {
         }
     }
 }
-
 
