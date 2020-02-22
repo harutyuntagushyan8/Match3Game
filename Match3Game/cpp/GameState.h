@@ -23,7 +23,6 @@ private:
     sf::Vector2i clickedPos;
     sf::Vector2i releasedPos;
     std::vector<sf::Texture*> gemTextures;
-    sf::Texture* tile1, *tile2, *h_bomb, *v_bomb, *bomb;
     std::vector<std::string> gemIcons = {"blue.png", "green.png", "orange.png", "red.png", "violet.png"};
 
     const int ROWS = 6;

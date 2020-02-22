@@ -12,11 +12,6 @@ GameState::GameState(sf::RenderWindow* window) : State(window) {
 }
 
 void GameState::initWindow() {
-    tile1 = new sf::Texture;
-    tile2 = new sf::Texture;
-    h_bomb = new sf::Texture;
-    v_bomb = new sf::Texture;
-    bomb = new sf::Texture;
     gemTextures.resize(gemIcons.size());
     for(int i = 0; i < gemTextures.size(); ++i) {
         gemTextures[i] = new sf::Texture;
@@ -40,11 +35,6 @@ void GameState::initWindow() {
 }
 
 void GameState::loadResources() {
-    tile1->loadFromFile(resourcePath() + "tile_1.png");
-    tile2->loadFromFile(resourcePath() + "tile_2.png");
-    h_bomb->loadFromFile(resourcePath() + "h_bomb.png");
-    v_bomb->loadFromFile(resourcePath() + "v_bomb.png");
-    bomb->loadFromFile(resourcePath() + "bomb.png");
     for(int i = 0; i < gemTextures.size(); ++i) {
         gemTextures[i]->loadFromFile(resourcePath() + gemIcons[i]);
     }

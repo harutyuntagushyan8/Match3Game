@@ -37,8 +37,8 @@ private:
     std::vector<sf::Texture*> gemTextures;
     sf::Texture* tile1, *tile2, *h_bomb, *v_bomb, *bomb;
     std::vector<std::string> gemIcons = {"blue.png", "green.png", "orange.png", "red.png", "violet.png"};
-    std::vector<std::pair<GemType, int>> gemCounts = {std::make_pair(GemType::Blue,3), std::make_pair(GemType::Green,5), std::make_pair(GemType::Orange,8),
-                                                        std::make_pair(GemType::Red,6), std::make_pair(GemType::Violet,9)};
+    std::vector<std::pair<GemType, int>> gemCounts = {std::make_pair(GemType::Blue,9), std::make_pair(GemType::Green,9), std::make_pair(GemType::Orange,9),
+                                                        std::make_pair(GemType::Red,9), std::make_pair(GemType::Violet,9)};
 
     void initBoard();
     void initScoredGems();
@@ -51,6 +51,7 @@ private:
     void loadResources();
     void random();
     void createGems();
+    int sumOfScores();
     void swapGems(int, int, int, int);
 
 public:
