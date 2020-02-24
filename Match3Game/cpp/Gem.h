@@ -9,7 +9,9 @@
 #include "SFML/Graphics.hpp"
 #include "ResourcePath.hpp"
 
-enum class GemType { Blue, Green, Orange, Red, Violet, SolidColor};
+enum class GemType { Blue, Green, Orange, Red, Violet, SolidColor, Undefined};
+
+enum class BombType {Undefined, HorizontalBomb, VerticalBomb};
 
 class Gem {
 private:
@@ -27,7 +29,9 @@ public:
     int gemNumber;
     void setGemTexture(sf::Texture*);
     void setGemType(GemType);
+    void setBombType(BombType);
     GemType type;
+    BombType bombType;
     int matchCount = 0;
     ~Gem();
     void update();

@@ -88,8 +88,17 @@ void Board::update() {
         updateScoredGems();
         resetMatches();
     }
+//    std::cout << "After update\n";
+//    for(int i = 0; i < rows; ++i) {
+//        for(int j = 0; j < columns; ++j) {
+//            std::cout << static_cast<std::underlying_type<GemType >::type>(gems[i][j]->type) <<
+//                      static_cast<std::underlying_type<GemType >::type>(gems[i][j]->bombType) << gems[i][j]->gemNumber << "  ";
+//        }
+//        std::cout << "\n\n";
+//    }
+//    std::cout << "\n\n";
     if(sumOfScores() == 0 && scoreValue > 0) {
-        std::cout << "You win the game\n";
+        scoreText.setString("Win");
     }
 }
 
@@ -122,9 +131,30 @@ void Board::checkGemSwapping() {
     if((std::abs(deltaX) <= offset.x && firstRow == secondRow) ||
         (std::abs(deltaY) <= offset.y && firstColumn == secondColumn)) {
         swapGems(firstRow, firstColumn, secondRow, secondColumn);
-        if(!checkSimpleMatch()) {
-            swapGems(secondRow, secondColumn, firstRow, firstColumn);
+        bool match_4 = check4Match();
+        if(match_4) {
+            if(isHorizontalBomb) {
+                isHorizontalBomb = false;
+                return;
+            }
+            if(isVerticalBomb) {
+                isVerticalBomb = false;
+                return;
+            }
+        } else {
+            if(!checkSimpleMatch()) {
+                swapGems(secondRow, secondColumn, firstRow, firstColumn);
+            }
         }
+//        std::cout << "After correct match\n";
+//        for(int i = 0; i < rows; ++i) {
+//            for(int j = 0; j < columns; ++j) {
+//                std::cout << static_cast<std::underlying_type<GemType >::type>(gems[i][j]->type) <<
+//                        static_cast<std::underlying_type<GemType >::type>(gems[i][j]->bombType) << gems[i][j]->gemNumber << "  ";
+//            }
+//            std::cout << "\n\n";
+//        }
+//        std::cout << "\n\n";
     }
 }
 
@@ -161,7 +191,7 @@ void Board::createGems() {
                 if(columns%2 == 0 || (columns%2 != 0 && j != columns - 1))
                     tileSequence = !tileSequence;
             } else {
-                gems[i][j] = new Gem(window, x, y, i, j, offset, GemType::SolidColor, nullptr, 5, nullptr);
+                gems[i][j] = new Gem(window, x, y, i, j, offset, GemType::SolidColor, nullptr, static_cast<int>(GemType::SolidColor), nullptr);
                 x += offset.x;
                 if(columns%2 == 0 || (columns%2 != 0 && j != columns - 1))
                     tileSequence = !tileSequence;
@@ -174,13 +204,25 @@ void Board::createGems() {
     while(checkSimpleMatch()) {
 
     }
-    checkSimpleMatch();
+//    std::cout << "After create board\n";
+//    for(int i = 0; i < rows; ++i) {
+//        for(int j = 0; j < columns; ++j) {
+//            std::cout << static_cast<std::underlying_type<GemType >::type>(gems[i][j]->type) <<
+//                      static_cast<std::underlying_type<GemType >::type>(gems[i][j]->bombType) << gems[i][j]->gemNumber << "  ";
+//        }
+//        std::cout << "\n\n";
+//    }
+//    std::cout << "\n\n";
 }
 
 void Board::swapGems(int firstRow, int firstColumn, int secondRow, int secondColumn) {
     if(std::find(holes.begin(), holes.end(), firstRow * columns + firstColumn) == holes.end() &&
             std::find(holes.begin(), holes.end(), secondRow * columns + secondColumn) == holes.end()) {
 
+        if (gems[firstRow][firstColumn]->bombType == BombType::HorizontalBomb || gems[firstRow][firstColumn]->bombType == BombType::VerticalBomb ||
+                gems[secondRow][secondColumn]->bombType == BombType::HorizontalBomb || gems[secondRow][secondColumn]->bombType == BombType::VerticalBomb) {
+            return;
+        }
         int tempGemNumber = gems[firstRow][firstColumn]->gemNumber;
         gems[firstRow][firstColumn]->gemNumber = gems[secondRow][secondColumn]->gemNumber;
         gems[secondRow][secondColumn]->gemNumber = tempGemNumber;
@@ -191,6 +233,15 @@ void Board::swapGems(int firstRow, int firstColumn, int secondRow, int secondCol
 
         gems[firstRow][firstColumn]->setGemTexture(gemTextures[gems[firstRow][firstColumn]->gemNumber]);
         gems[secondRow][secondColumn]->setGemTexture(gemTextures[gems[secondRow][secondColumn]->gemNumber]);
+        std::cout << "After swapping\n";
+//        for(int i = 0; i < rows; ++i) {
+//            for(int j = 0; j < columns; ++j) {
+//                std::cout << static_cast<std::underlying_type<GemType >::type>(gems[i][j]->type) <<
+//                          static_cast<std::underlying_type<GemType >::type>(gems[i][j]->bombType) << gems[i][j]->gemNumber << "  ";
+//            }
+//            std::cout << "\n\n";
+//        }
+//        std::cout << "\n\n";
     }
 }
 
@@ -324,6 +375,101 @@ bool Board::checkSimpleMatch() {
 }
 
 bool Board::check4Match() {
+    for(int i = 1; i < rows - 2; ++i) {
+        for (int j = 1; j < columns - 2; ++j) {
+            if (gems[i][j]->type == gems[i - 1][j]->type) {
+                if (gems[i][j]->type == gems[i + 1][j]->type) {
+                    if(gems[i][j]->type == gems[i + 2][j]->type) {
+                        isVerticalBomb = true;
+                        int bombRow = (clickedPos.y - originY)/offset.y;
+                        gems[bombRow][j]->setGemTexture(v_bomb);
+                        gems[bombRow][j]->setGemType(GemType::Undefined);
+                        gems[bombRow][j]->setBombType(BombType::VerticalBomb);
+                        gems[bombRow][j]->gemNumber = static_cast<int>(GemType::Undefined);
+                        return true;
+                    }
+                }
+            }
+
+            if (gems[i][j]->type == gems[i][j - 1]->type) {
+                if (gems[i][j]->type == gems[i][j + 1]->type) {
+                    if (gems[i][j]->type == gems[i][j + 2]->type) {
+                        isHorizontalBomb = true;
+                        int bombColumn = (clickedPos.x - originX)/offset.x;
+                        gems[i][bombColumn]->setGemTexture(h_bomb);
+                        gems[i][bombColumn]->setGemType(GemType::Undefined);
+                        gems[i][bombColumn]->setBombType(BombType::HorizontalBomb);
+                        gems[i][bombColumn]->gemNumber = static_cast<int>(GemType::Undefined);
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+    // Must check perimeter of board(first row)
+    for(int j = 1; j < columns - 2; ++j) {
+        if(gems[0][j]->type == gems[0][j - 1]->type ) {
+            if(gems[0][j]->type == gems[0][j + 1]->type) {
+                if (gems[0][j]->type == gems[0][j + 2]->type) {
+                    isHorizontalBomb = true;
+                    int bombColumn = (clickedPos.x - originX)/offset.x;
+                    gems[0][bombColumn]->setGemTexture(h_bomb);
+                    gems[0][bombColumn]->setGemType(GemType::Undefined);
+                    gems[0][bombColumn]->setBombType(BombType::HorizontalBomb);
+                    gems[0][bombColumn]->gemNumber = static_cast<int>(GemType::Undefined);
+                    return true;
+                }
+            }
+        }
+    }
+    // last row
+    for(int j = 1; j < columns - 2; ++j) {
+        if(gems[rows - 1][j]->type == gems[rows - 1][j - 1]->type) {
+            if(gems[rows - 1][j]->type == gems[rows - 1][j + 1]->type) {
+                if (gems[rows - 1][j]->type == gems[rows - 1][j + 2]->type) {
+                    isHorizontalBomb = true;
+                    int bombColumn = (clickedPos.x - originX)/offset.x;;
+                    gems[rows - 1][bombColumn]->setGemTexture(h_bomb);
+                    gems[rows - 1][bombColumn]->setGemType(GemType::Undefined);
+                    gems[rows - 1][bombColumn]->setBombType(BombType::HorizontalBomb);
+                    gems[rows - 1][bombColumn]->gemNumber = static_cast<int>(GemType::Undefined);
+                    return true;
+                }
+            }
+        }
+    }
+    // first column
+    for(int i = 1; i < rows - 2; ++i) {
+        if(gems[i][0]->type == gems[i - 1][0]->type) {
+            if(gems[i][0]->type == gems[i + 1][0]->type) {
+                if (gems[i][0]->type == gems[i + 2][0]->type) {
+                    isVerticalBomb = true;
+                    int bombRow = (clickedPos.y - originY)/offset.y;
+                    gems[bombRow][0]->setGemTexture(v_bomb);
+                    gems[bombRow][0]->setGemType(GemType::Undefined);
+                    gems[bombRow][0]->setBombType(BombType::VerticalBomb);
+                    gems[bombRow][0]->gemNumber = static_cast<int>(GemType::Undefined);
+                    return true;
+                }
+            }
+        }
+    }
+    // last column
+    for(int i = 1; i < rows - 2; ++i) {
+        if(gems[i][columns - 1]->type == gems[i - 1][columns - 1]->type) {
+            if(gems[i][columns - 1]->type == gems[i + 1][columns - 1]->type) {
+                if (gems[i][columns - 1]->type == gems[i + 2][columns - 1]->type) {
+                    isVerticalBomb = true;
+                    int bombRow = (clickedPos.y - originY)/offset.y;
+                    gems[bombRow][columns - 1]->setGemTexture(v_bomb);
+                    gems[bombRow][columns - 1]->setGemType(GemType::Undefined);
+                    gems[bombRow][columns - 1]->setBombType(BombType::VerticalBomb);
+                    gems[bombRow][columns - 1]->gemNumber = static_cast<int>(GemType::Undefined);
+                    return true;
+                }
+            }
+        }
+    }
     return false;
 }
 
@@ -368,5 +514,56 @@ void Board::resetMatches() {
             gems[i][j]->matchCount = 0;
         }
     }
+}
+
+void Board::explodeBomb() {
+    int clickRow = std::abs((clickedPos.y - originY)/offset.y);
+    int clickColumn = std::abs((clickedPos.x - originX)/offset.x);
+    if (gems[clickRow][clickColumn]->bombType == BombType::HorizontalBomb) {
+        for(int j = 0; j < columns; ++j) {
+            if (gems[clickRow][j]->type != GemType::SolidColor) {
+                if (gems[clickRow][j]->bombType == BombType ::Undefined)
+                    gems[clickRow][j]->matchCount++;
+                updateScoredGems();
+                resetMatches();
+                int randomGem = std::rand() % gemIcons.size();
+                gems[clickRow][j]->setGemTexture(gemTextures[randomGem]);
+                gems[clickRow][j]->setGemType(static_cast<GemType>(randomGem));
+                gems[clickRow][j]->gemNumber = randomGem;
+                gems[clickRow][j]->bombType = BombType::Undefined;
+                if (scoreValue != 0)
+                    scoreText.setString(std::to_string(--scoreValue));
+            }
+        }
+    }
+    else if (gems[clickRow][clickColumn]->bombType == BombType::VerticalBomb) {
+        for(int i = 0; i < rows; ++i) {
+            if (gems[i][clickColumn]->type != GemType::SolidColor) {
+                if (gems[i][clickColumn]->bombType == BombType ::Undefined)
+                    gems[i][clickColumn]->matchCount++;
+                updateScoredGems();
+                resetMatches();
+                int randomGem = std::rand() % gemIcons.size();
+                gems[i][clickColumn]->setGemTexture(gemTextures[randomGem]);
+                gems[i][clickColumn]->setGemType(static_cast<GemType>(randomGem));
+                gems[i][clickColumn]->gemNumber = randomGem;
+                gems[i][clickColumn]->bombType = BombType::Undefined;
+                if (scoreValue != 0)
+                    scoreText.setString(std::to_string(--scoreValue));
+            }
+        }
+    } else {
+
+    }
+}
+
+bool Board::isBoardHasBomb() {
+    for(int i = 0; i < rows; ++i) {
+        for(int j = 0; j < columns; ++j) {
+            if (gems[i][j]->bombType == BombType::VerticalBomb || gems[i][j]->bombType == BombType::HorizontalBomb)
+                return true;
+        }
+    }
+    return false;
 }
 

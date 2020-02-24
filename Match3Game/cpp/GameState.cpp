@@ -55,6 +55,8 @@ void GameState::updateSFMLEvents() {
                 mousePos.y <= Y + OFFSET.y * ROWS && mousePos.y >= X) {
                 clickedPos = mousePos;
                 board->updateMouseClickedPos(clickedPos);
+                if (board->isBoardHasBomb())
+                    board->explodeBomb();
                 continue;
             }
         }

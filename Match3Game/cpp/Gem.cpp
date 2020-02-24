@@ -18,6 +18,8 @@ Gem::Gem(sf::RenderWindow* window, int x, int y, int row, int column, sf::Vector
     spriteBackground = new sf::Sprite;
     spriteForeground = new sf::Sprite;
 
+    bombType = BombType::Undefined;
+
     if(tileTexture != nullptr) {
         spriteBackground->setTexture(*tileTexture);
         spriteBackground->setTextureRect(sf::IntRect(x, y, this->offset.x, this->offset.y));
@@ -59,4 +61,8 @@ void Gem::setGemTexture(sf::Texture* texture) {
 
 void Gem::setGemType(GemType type) {
     this->type = type;
+}
+
+void Gem::setBombType(BombType bombType) {
+    this->bombType = bombType;
 }

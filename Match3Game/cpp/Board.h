@@ -31,7 +31,10 @@ private:
     sf::Vector2i clickedPos;
     sf::Font font;
     sf::Text scoreText;
-    int scoreValue = 20;
+    int scoreValue = 30;
+    bool isVerticalBomb;
+    bool isHorizontalBomb;
+    bool isSquareBomb;
     std::vector<sf::Text> gemsCountsText;
     std::vector<sf::Sprite> menuGems;
     std::vector<sf::Texture*> gemTextures;
@@ -62,6 +65,8 @@ public:
     void updateSFMLEvents();
     void updateMouseClickedPos(sf::Vector2i);
     void updateMouseReleasedPos(sf::Vector2i);
+    void explodeBomb();
+    bool isBoardHasBomb();
 
 };
 
